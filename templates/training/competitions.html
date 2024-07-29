@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="competitions">
+  <div class="events">
+    <div>
+      {{ html_out1|safe }}
+    </div>
+    <div>
+      {{ html_out|safe }}
+    </div>
+    <div>
+      {{ html_out2|safe }}
+    </div>
+  </div>
+    <h1>Соревнования {{ name }}:</h1>
+    <table class="competitions-table">
+        <tr>
+          <th>Соревнования</th>
+          <th>Дата проведения</th>
+          <th>Город</th>
+          <th>Дисциплина</th>
+          <th>Планируемый результат</th>
+          <th>Выполненый результат</th>
+          <th>Планируемое место</th>
+          <th>Занято место</th>
+          <th>Результат победителя</th>
+        </tr>
+        {% for item in list_competitions%}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.date|date:"d.m.Y H:i" }}</td>
+          <td>{{ item.city }}</td>
+          <td>{{ item.discipline.name }}</td>
+          <td>{{ item.plan_result }}</td>
+          <td>{{ item.result }}</td>
+          <td>{{ item.plan_place }}</td>
+          <td>{{ item.place }}</td>
+          <td>{{ item.result_first_place }}</td>
+        </tr>
+        {% endfor%}
+    </table>
+    <a href="/add_competitions">
+        <button type="submit" class="btn">Добавить соревнования </button>
+    </a>
+    <a href="/add_discipline">
+        <button type="submit" class="btn">Добавить дисциплину </button>
+    </a>
+
+</div>
+
+{% endblock content %}

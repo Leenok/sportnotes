@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="add-discipline">
+    <h1>ADD discipline</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.name}}<br> 
+        {{ form.description}}<br> 
+        <span>{{error}}</span>
+        <input type="submit" value="Сохранить" class="">
+    </form>
+</div>
+
+{% endblock content %}

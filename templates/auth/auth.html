@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth">
+    <div class="error">{{error}}</div>
+    <form action="" class="registration" method="POST">
+        {% csrf_token %}
+        <label for="">Авторизация</label>
+        <input type="text" placeholder="login" name="login">
+        <input type="password" placeholder="password" name="password">
+        <input type="submit" value="authorization" class="access-delete">
+        <input type="submit" value="registration" class="access-delete">
+    </form>
+</div>
+{% endblock content %}

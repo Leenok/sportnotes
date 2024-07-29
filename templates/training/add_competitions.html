@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="add-competitions">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <!-- {{ form.name }}<br>
+        {{ form.date }}<br>
+        {{ form.city }}<br>
+        {{ form.discipline }}<br>
+        {{ form.plan_result }}<br>
+        {{ form.result }}<br>
+        {{ form.plan_place }}<br>
+        {{ form.place }}<br>
+        {{ form.result_first_place }}<br>
+        {{ form.description }}<br>  -->
+        <span>{{error}}</span>
+        <button type="submit" value="save" class="intput_competition btn-add-comp">Save</button>
+    </form>
+</div>
+
+{% endblock content %}

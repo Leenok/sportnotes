@@ -1,0 +1,307 @@
+:root {
+    --main-bg-color: rgb(5, 65, 65);
+    --main-bg-hover-color: rgb(9, 87, 87);
+    --main-text-color: aliceblue;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-size: 10px;
+    
+}
+.content{
+    min-height: 100vh;
+}
+.wraper{
+    width: 80%;
+    margin: 0 auto;
+}
+.bold{
+    font-weight: bold;
+}
+.none{
+    display: none;
+}
+
+/* nav  */
+.nav{
+    font-size: 1.6rem;
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    text-align: center;
+    
+    animation: all 0.7s forwards;
+}
+.nav-items{
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style-type: none;
+}
+.nav-items li{
+    text-decoration: none;
+    padding: 7px;
+    text-shadow: 0 0 0 transparent;
+    transition: 0.5s;
+}
+.nav-items li:hover{
+    cursor: pointer;
+    text-shadow: -3px -3px #558ABB;
+}
+
+/* trainings  */
+.trainings{
+    /* background-color: rgb(202, 202, 92); */
+    font-size: 1.1rem;
+    padding-top: 50px;
+}
+.trainings-info{
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 15px;
+}
+.trainings-main{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* date */
+.trainings-info input[type="date"]{
+    background-color: #55bba1;
+    padding: 5px;
+    font-size: 12px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.trainings-number{
+    width: 70px;
+    text-align: center;
+}
+
+/* exercise */
+.exercise-line{
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+
+    /* background-color: #55bba1; */
+    width: 120px;
+    /* margin: 0 auto; */
+
+}
+select{
+    display: block;
+    width: 100%;
+    /* border: none; */
+    padding: 5px 7px;
+    margin: 3px;
+    /* border-radius: 5px;
+    background-color: #b5fdeba6; */
+}
+.exercise > select:hover{
+    border-radius: 5px;
+    /* background-color: #55bba1; */
+}
+.exercise-total{
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+/* access */
+.access-line{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.access{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+}
+.access-item{
+    display: flex; 
+    min-width: 70px;
+    flex-direction: column;
+    padding: 5px;
+}
+.access-item label{
+    font-weight: bold;
+    font-size: 1rem;
+}
+.access-item input[type="number"]{
+    display: block;
+    /* background-color: #55bba1; */
+    width: 70px;
+    padding: 3px;
+    margin: 3px;
+    border: none;
+    /* border-bottom: #0c502a; */
+    text-align: center;
+}
+.access-delete{
+    /* width: 100%; */
+    color: white;
+    background-color: #bd6969;
+    border: none;
+}
+.access-delete:hover{
+    background-color: #c04b4b;
+}
+
+.btn{
+    background-color: #55bba1;
+    text-align: center;
+    width: 100%;
+    padding: 5px;
+    margin: 10px 0;
+    color: #408a77;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0px 5px 10px 2px rgba(132, 250, 205, 0.2);
+}
+.btn:hover{
+    background-color: #2a5541;
+    color: white;
+    box-shadow: 0px 5px 10px 2px rgba(38, 119, 72, 0.2) inset;
+}
+.exercise-add{
+    background-color:  #b5fdeba6;
+}
+.training-save{
+
+}
+
+
+
+
+.none{
+    display: none;
+}
+
+
+
+.plus{
+    width: 40px;
+    /* height: 100%; */
+    background: #b5fdeba6;
+    color: #2a5541;
+    border: none;
+}
+.plus:hover{
+    cursor: pointer;
+    color: white;
+    background: var(--main-bg-hover-color);
+}
+
+
+
+
+
+/* footer */
+footer{
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    font-size: 1.2rem;
+    text-align: left;
+}
+.footer-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+}
+
+
+/* registration */
+.registration{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+
+}
+.registration > input, .registration label{
+    padding: 7px;
+    margin: 5px;
+    text-align: center;
+}
+.registration label{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.registration > input:active, .registration > input:focus{
+    border: none;
+    border-bottom: 1px #2a5541 solid;
+}
+
+/* competitions */
+.competitions h1{
+    text-align: center;
+    color: #214635;
+    padding: 10px;
+}
+.competitions-table{
+    text-align: center;
+}
+.competitions-table td{
+    text-align: center;
+    padding: 5px 7px;
+    border: 1px solid black;
+    color: #c04b4b;
+}
+.competitions .btn{
+    padding: 5px 12px;
+    background-color: #408a77;
+    color: white;
+}
+.competitions .btn:hover{
+    background-color: #2c5e51;
+    /* color: white; */
+}
+.add-competitions{
+    min-width: 500px;
+    width: 50%;
+    margin: 15px auto 0;
+}
+.intput_competition{
+    padding: 5px 7px;
+    margin: 3px;
+    width: 100%;
+}
+.btn-add-comp{
+    background-color: #55bba1;
+    color: white;
+    border: none;
+}
+.btn-add-comp:hover{
+    background-color: #214635;
+    color: white;
+    border: none;
+}
+
+.events{
+    display: flex;
+    /* width: 50%; */
+    margin: 10px auto;
+    justify-content: center;
+}
+.events div{
+    margin: 5px;
+}
