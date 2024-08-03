@@ -1,32 +1,47 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from .models import Competition, Discipline, Exercise, Program, Training, Approach
-from .forms import CompetitionForm, DisciplineForm
+from .forms import CompetitionForm, DisciplineForm, ApproachForm
 import calendar
 from datetime import datetime
 
-def index(request):
-    # exc = Exercise.objects.all()
-    # print(exc)
-    pr = Program.objects.all()
-    print(pr)
-    apr =Approach.objects.all()
-    print(apr)
-    pr.delete()
-    # exc.delete()
-    apr.delete()
-    return render(request, "main.html")
 
 def showTrainings(request):
     user_id = request.user.id
     list_trainings = Training.objects.filter(sportsmen = user_id)
-    list_program = Program.objects.all
+    list_program = Program.objects.all()
     exc_for_trainings = {}
+    list_approach = Approach.objects.all()
     for i in list_trainings:
         exc_for_trainings[i.programm_name] = Program.objects.filter(name = i.programm_name)
+        # list_approach.push(Approach.objects.filter(training_id=i.id))
 
-    print(list_program)
-    return render(request, "training/training.html", {'list_trainings':list_trainings, 'list_program':list_program})
+    # add and show Approachs
+    error = ''
+    if request.method == "POST":
+        form = ApproachForm(request.POST)
+        print(form.is_valid())
+        print(form['training_id'])
+        print(form['programm_id'])
+        print(form.errors)
+        
+        if form.is_valid():
+            print('valid')
+            newApproach = form.save()
+            print(newApproach)
+            return redirect(showTrainings)
+        else:
+            form.errors
+    form = ApproachForm()
+
+    data ={
+        'list_trainings':list_trainings,
+        'list_program':list_program,
+        'list_approach':list_approach,
+        'form': form,
+        'error': error
+    }
+    return render(request, "training/training.html", data)
 
 
 def competitions(request):
@@ -76,7 +91,7 @@ def add_discipline(request):
         if form.is_valid():
             newDisc = form.save()
             print(newDisc)
-            return redirect(index)
+            return render(request, "main.html")
         else:
             error = 'Форма не верная'
     
@@ -86,3 +101,22 @@ def add_discipline(request):
         'error': error
     }
     return render(request, "training/add_discipline.html", data2)
+
+
+# def add_approach(request):
+#     error = ''
+#     if request.method == "POST":
+#         form = ApproachForm(request.POST)
+#         if form.is_valid():
+#             newApproach = form.save()
+#             print(newApproach)
+#             return render(request, "training/training.html")
+#         else:
+#             error = 'Форма не верная'
+    
+#     form = ApproachForm()
+#     data3 ={
+#         'form': form,
+#         'error': error
+#     }
+#     return render(request, "training/training.html", data3)

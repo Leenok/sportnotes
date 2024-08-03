@@ -25,6 +25,9 @@ body{
 .none{
     display: none;
 }
+.hide{
+    display: none;
+}
 
 /* nav  */
 .nav{

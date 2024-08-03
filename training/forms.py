@@ -1,10 +1,46 @@
 
 from selectors import SelectSelector
-from .models import Competition, Discipline
+from .models import Competition, Discipline, Approach
 from django.forms import ChoiceField, HiddenInput, DateInput, ModelForm, TextInput, DateTimeInput, NumberInput
 
 
+class ApproachForm(ModelForm):
+    class Meta:
+        model = Approach
+        fields = ['training_id', 'programm_id', 'number', 'quantity', 'weight', 'time', 'time_rest', 'isCompleted']
 
+        widgets = {
+            'training_id': HiddenInput(),
+            'programm_id': HiddenInput(),
+            # 'training_id': NumberInput(attrs={
+            #     'class': 'form-control', 
+            #     'placeholder': 'training_id'
+            # }),
+            # 'programm_id': NumberInput(attrs={
+            #     'class': 'form-control', 
+            #     'placeholder': 'номер'
+            # }),
+            'number': NumberInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'номер'
+            }),
+            'quantity': NumberInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'раз'
+            }),
+            'weight': NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'кг'
+            }),
+            'time': NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'время'
+            }),
+            'time_rest': NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'время отдыха'
+            }),
+        }
 
 class DisciplineForm(ModelForm):
     class Meta:
@@ -24,15 +60,15 @@ class CompetitionForm(ModelForm):
                 'placeholder': 'Название соревнований'
             }),
             'date_start': DateInput(
-                format=('%d-%m-%YT'),
-                attrs={'type':'datetime-local',
+                format=['%d-%m-%Y'],
+                attrs={'type':'date',
                         'class': 'form-control', 
                        'placeholder': 'Дата  начала соревнований',
                     #    'type': 'date'  # <--- IF I REMOVE THIS LINE, THE INITIAL VALUE IS DISPLAYED
                       }),
             'date_end': DateInput(
-                format=('%d-%m-%YT'),
-                attrs={'type':'datetime-local',
+                format=['%d-%m-%Y'],
+                attrs={'type':'date',
                         'class': 'form-control', 
                        'placeholder': 'Дата окончаний соревнований',
                     #    'type': 'date'  # <--- IF I REMOVE THIS LINE, THE INITIAL VALUE IS DISPLAYED

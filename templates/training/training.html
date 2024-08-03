@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="trainings">
+<!-- <div class="trainings">
     <div class="trainings-info">
         <div class="">Тренировка: <input type="number" name="" id="" value="1" class="trainings-number"></div>
         <div class="date"> <form>
@@ -85,31 +85,73 @@
     <input type="button" value="Сохранить тренировку" class="training-save btn">
 
 
-</div>
+</div> -->
 
 
-<div class="show-compititions">
+<div class="">
     {% for item in list_trainings%}
-    <div class="competition">
-        <h3> {{ item.name }} </h3>
-        <li> {{ item.date }} {{ item.type }} {{item.programm_name }} </li>
-        <h2> Упражнения:</h2>
-        <ol>
-            {% for i in list_program %}
-                {% if i.name == item.programm_name %}
-                <li>{{ i.exercise_id.name }}</li>
-                {% endif %}
-            {% endfor %}
-        </ol>
+    <div class="trainings">
+        <div class="training-item">
+            <h3> Тренировка:{{ item.name }} {{ item.date }} {{ item.type }} {{item.programm_name }} </h3>
+
+            <ol>
+                {% for i in list_program %}
+                    {% if i.name == item.programm_name %}
+                    <li>{{ i.exercise_id.name }}</li>
+                    <div class="access-line">
+                            {% for j in list_approach %}
+                                {% if j.training_id.id == item.id and  j.programm_id.id == i.id%}
+                                <div class="access">
+                                    <div>  Подход {{ j.number }}</div>
+                                    <div>
+                                        <!-- <p>Тренировка {{ j.training_id.name }} </p>
+                                        <p>Программа {{ j.programm_id.name }} </p> -->
+                                        <p>{{ j.quantity }} раз</p>
+                                        <p>{{ j.weight }} кг</p>
+                                        <p>{{ j.time }} минут</p>
+                                        <p>{{ j.isCompleted}} выполнен</p>
+                                        <input type="button" value="ready" >
+                                    </div>
+                                    
+                                </div>
+                                {% endif %} 
+                            {% endfor%}
+                            <div class="add-approachs hide">
+                                <p>Подход</p>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name='training_id' value="{{item.id}}">
+                                    <input type="hidden" name='programm_id' value="{{i.id}}">
+                                    {{ form.number }}<br> 
+                                    {{ form.quantity }}<br> 
+                                    {{ form.weight }}<br> 
+                                    {{ form.time }}<br> 
+                                    {{ form.time_rest }}<br> 
+
+                                    <span>{{data.error}}</span>
+                                    <button type="submit">Сохранить</button>
+                                </form>
+                            </div>
+                            
+                            <div class="d-plus">
+                                <input type="button" value="+" class="plus">
+                            </div>
+                            <div class="minus hide">
+                                <input type="button" value="-" class="plus">
+                            </div>  
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </div>
+
+       
+
        
     </div>
     {% endfor %}
 
-    <!-- {% for item in list_program %}
-    <ol>
-        <li> {{ item.name }} </li>
-        <li> {{ item.exercise_id.name }} </li>
-    </ol>
-    {% endfor %} -->
+
+
   </div>
 {% endblock content %}

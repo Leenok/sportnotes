@@ -19,7 +19,7 @@
                 <li><a href="/main">Main</a></li>
                 <li><a href="/training">Trainings</a></li>
                 <li>Plans</li>
-                {% if user_name == "Не авторизован" %}
+                {% if user_name %}
                 <li><a href="/auth">Log in</a></li>
                 <li><a href="/reg">Reg</a></li>
                 {% else %}

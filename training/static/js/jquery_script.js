@@ -1,58 +1,41 @@
 $( document ).ready(function() {
     console.log( "ready! jquery" );
-    $( ".access-add" ).click(function() {
-        console.log('add access');
-        $curr =  $(".access-add").before();
-        $(`     
-        <div class="access">
-            <form action="" class="access-item">
-                <label for="">Подход 6</label>
-                <input type="number" placeholder="km">
-                <input type="number" placeholder="time">
-                <input type="button" value="delete" class="access-delete">
-            </form>
-        </div>
-        `).insertBefore(this);
+    // $( ".access-add" ).click(function() {
+
+    //     $curr =  $(".access-add").before();
+    //     $(`     
+    //         <div class="add-approachs">
+    //             <p>Подход</p>
+    //             <form method="POST">
+    //                 {% csrf_token %}
+    //                 <input type="hidden" name='training_id' value="{{item.id}}">
+    //                 <input type="hidden" name='programm_id' value="{{i.id}}">
+    //                 {{ form.number }}<br> 
+    //                 {{ form.quantity }}<br> 
+    //                 {{ form.weight }}<br> 
+    //                 {{ form.time }}<br> 
+    //                 {{ form.time_rest }}<br> 
+
+    //                 <span>{{data.error}}</span>
+    //                 <button type="submit">Сохранить</button>
+    //             </form>
+    //         </div>
+    //     `).insertBefore(this);
 
 
-    });
+    // });
 
-    $( ".exercise-add").click(function() {
-        console.log('add exc');
-        $(`
-        <div class="trainings-main">
-            <form action="" class="exercise-line">
-                <form ac class="exercise">
-                    <select id="exerc" name="exerc" class="">
-                        <option value="run">Run</option>
-                        <option value="jump">Jump</option>
-                        <option value="throw">Throw</option>
-                    </select>
-                </form>
-                <div class="access-line">
-                    <div class="access">
-                        <form action="" class="access-item">
-                            <label for="">Подход 1</label>
-                            <input type="number" placeholder="km">
-                            <input type="number" placeholder="time">
-                            <input type="button" value="delete" class="access-delete">
-                        </form>
-                    </div>
-                </div>
-                <div class="access-add">
-                    <input type="button" value="+" class="plus">
-                </div>
-                <div class="exercise-total">
-                    <div class="bold">Сумма подходов:</div>
-                    <div class="">30 km</div>
-                    <div class="">1час 15мин</div>
-                </div>
-            </form>
-        </div>
-        `).appendTo(".lines");
+    $(".minus").click(function(){
+        $(".add-approachs").addClass('hide');
+        $(".d-plus").removeClass('hide');
+        $(".minus").addClass('hide');
+    })
+    $(".d-plus").click(function(){
+        $(".add-approachs").removeClass('hide');
+        $(".minus").removeClass('hide');
+        $(".d-plus").addClass('hide');
 
-    });
-    
+    })
 
 
 

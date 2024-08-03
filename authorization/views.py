@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, logout, login
 
 
 def main(request):
-    user_name = request.session.get("is_auth", "Не авторизован")
-    return render(request, "main.html", {"user_name": user_name})
+    user_name = request.session['is_auth']
+    return render(request, "main.html", {'user_name':user_name})
 
 def auth(request):
     if request.method == "POST":
