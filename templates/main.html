@@ -3,10 +3,14 @@
 {% block content %}
 <div class="main">
     <h1>Main</h1>
-    {% if user_name%}
-    <h2>Hello, {{user_name}}!</h2>
+    {% if request.user.is_authenticated %}
+    <h2>Hello, {{request.user}}!</h2>
     {% else %}
     <h2>Hello!</h2>
     {% endif %}
+    
 </div>
+<div id='calendar'></div>
+
+
 {% endblock content %}

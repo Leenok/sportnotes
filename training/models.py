@@ -28,12 +28,13 @@ class Training(models.Model):
 class Approach(models.Model):
     training_id = models.ForeignKey(Training, on_delete=models.CASCADE, default=None)
     programm_id = models.ForeignKey(Program, on_delete=models.CASCADE, default=None)
-    number = models.IntegerField(default=None, blank=True) #номер
-    isCompleted = models.BooleanField(default=False, blank=True) #выполнен ли подход
-    quantity = models.IntegerField(default=None, blank=True) #кол-во
-    weight = models.FloatField(default=None, blank=True) #вес
-    time = models.FloatField(default=None, blank=True) #время
-    time_rest = models.FloatField(default=None, blank=True) #время отдыха
+    number = models.IntegerField(default=None, blank=True, null=True) #номер
+    quantity = models.IntegerField(default=None, blank=True, null=True) #кол-во
+    weight = models.FloatField(default=None, blank=True, null=True) #вес
+    distance = models.FloatField(default=None, blank=True, null=True) #дистанция
+    time = models.FloatField(default=None, blank=True, null=True) #время
+    time_rest = models.FloatField(default=None, blank=True, null=True) #время отдыха
+    isCompleted = models.BooleanField(default=False) #выполнен ли подход
     
 
 class Discipline(models.Model):

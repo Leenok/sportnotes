@@ -15,9 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from training.views import competitions, add_competitions, add_discipline, showTrainings
-from authorization.views import auth, main, out, reg
+from django.urls import path, include
+# from swingtime import event_view
+from training.views import competitions, add_competitions, add_discipline, showTrainings, sport_events, add_training, delete_training, add_approach, setCompleted, show_training_plan, main, all_events, add_event
+from authorization.views import auth, out, reg
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,7 +29,24 @@ urlpatterns = [
     path('auth/', auth),
     path('reg/', reg),
     path('out/', out),
+    
     path('competitions_list/', competitions),
     path('add_competitions/', add_competitions),
     path('add_discipline/', add_discipline),
+
+    path('add_training/', add_training),
+    path('training/delete_training/', delete_training),
+    path('training/add_approach/', add_approach),
+    path('training/setCompleted/', setCompleted),
+
+    path('training_plans/', show_training_plan),
+
+
+    path('events/', sport_events),
+    path('', include('swingtime.urls')),
+    # path(' path("calender/", views.CalendarViewNew.as_view(), name="calendar"),', include('swingtime.urls'))
+    
+    
+    path('all_events/', all_events, name="all_events"),
+    path('add_event/', add_event, name="add_event"),
 ]

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'training',
     'authorization',
     "django_static_jquery3",
+    "swingtime",
 ]
 
 MIDDLEWARE = [

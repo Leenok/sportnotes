@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="add-training">
+    <h1>Добавить тренировку</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{form}}<br> 
+        <span>{{error}}</span>
+        <input type="submit" value="Сохранить" class="">
+    </form>
+</div>
+
+{% endblock content %}

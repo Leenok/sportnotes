@@ -1,36 +1,61 @@
 
 from selectors import SelectSelector
-from .models import Competition, Discipline, Approach
+from .models import Competition, Discipline, Approach, Training
 from django.forms import ChoiceField, HiddenInput, DateInput, ModelForm, TextInput, DateTimeInput, NumberInput
+
+
+class TrainingForm(ModelForm):
+    class Meta:
+        model = Training
+        fields = ['sportsmen', 'name', 'date', 'type', 'programm_name']
+
+        widgets = {
+            'sportsmen': HiddenInput(),
+            'name': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Название тренировки'
+            }),
+            'date': DateInput(
+                format=['%d-%m-%Y'],
+                attrs={'type':'date',
+                        'class': 'form-control', 
+                        'placeholder': 'Дата  тренировки',
+                #    'type': 'date'  # <--- IF I REMOVE THIS LINE, THE INITIAL VALUE IS DISPLAYED
+            }),
+            'type': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Тип тренировки'
+            }),
+            'programm_name': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Программа тренировки'
+            }),
+        }
 
 
 class ApproachForm(ModelForm):
     class Meta:
         model = Approach
-        fields = ['training_id', 'programm_id', 'number', 'quantity', 'weight', 'time', 'time_rest', 'isCompleted']
+        fields = ['training_id', 'programm_id', 'number', 'weight', 'quantity', 'distance', 'time', 'time_rest', 'isCompleted']
 
         widgets = {
             'training_id': HiddenInput(),
             'programm_id': HiddenInput(),
-            # 'training_id': NumberInput(attrs={
-            #     'class': 'form-control', 
-            #     'placeholder': 'training_id'
-            # }),
-            # 'programm_id': NumberInput(attrs={
-            #     'class': 'form-control', 
-            #     'placeholder': 'номер'
-            # }),
             'number': NumberInput(attrs={
                 'class': 'form-control', 
                 'placeholder': 'номер'
+            }),
+            'weight': NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'кг'
             }),
             'quantity': NumberInput(attrs={
                 'class': 'form-control', 
                 'placeholder': 'раз'
             }),
-            'weight': NumberInput(attrs={
+            'distance': NumberInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'кг'
+                'placeholder': 'дистанция'
             }),
             'time': NumberInput(attrs={
                 'class': 'form-control',

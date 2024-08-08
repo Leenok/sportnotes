@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="add-discipline">
+    <h1>Планы тренировок:</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {% for item in list_program%}
+            <p>{{ item }} / {{ item.count_approach }}  </p>
+            {% comment %} {% for i in item %}
+                <p>{{ i }} </p>
+                <p>{{ i.exercise_id.name }} </p>
+            {% endfor%} {% endcomment %}
+        {% endfor%}
+        <span>{{error}}</span>
+        <input type="submit" value="Сохранить" class="">
+    </form>
+</div>
+
+{% endblock content %}

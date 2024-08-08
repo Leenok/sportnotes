@@ -22,13 +22,22 @@ body{
 .bold{
     font-weight: bold;
 }
+.block{
+    display: block;
+}
 .none{
     display: none;
 }
 .hide{
     display: none;
 }
-
+.white-href{
+    text-decoration: none;
+    color: white;
+}
+.white-href:visited{
+    color: white;
+}
 /* nav  */
 .nav{
     font-size: 1.6rem;

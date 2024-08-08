@@ -89,69 +89,81 @@
 
 
 <div class="">
-    {% for item in list_trainings%}
+    <a href="/add_training"  class="exercise-add btn block" >Добавить тренировку</a>
     <div class="trainings">
-        <div class="training-item">
-            <h3> Тренировка:{{ item.name }} {{ item.date }} {{ item.type }} {{item.programm_name }} </h3>
-
-            <ol>
-                {% for i in list_program %}
-                    {% if i.name == item.programm_name %}
-                    <li>{{ i.exercise_id.name }}</li>
-                    <div class="access-line">
-                            {% for j in list_approach %}
-                                {% if j.training_id.id == item.id and  j.programm_id.id == i.id%}
-                                <div class="access">
-                                    <div>  Подход {{ j.number }}</div>
-                                    <div>
-                                        <!-- <p>Тренировка {{ j.training_id.name }} </p>
-                                        <p>Программа {{ j.programm_id.name }} </p> -->
-                                        <p>{{ j.quantity }} раз</p>
-                                        <p>{{ j.weight }} кг</p>
-                                        <p>{{ j.time }} минут</p>
-                                        <p>{{ j.isCompleted}} выполнен</p>
-                                        <input type="button" value="ready" >
+            {% for item in list_trainings%}
+                <div class="training-item">
+                    <h3> Тренировка:{{ item.name }} {{ item.date }} {{ item.type }} {{item.programm_name }} </h3>
+                    <ol>
+                        {% for i in list_program %}
+                            {% if i.name == item.programm_name %}
+                            <li>{{ i.exercise_id.name }}</li>
+                            <div class="access-line">
+                                    {% for j in list_approach %}
+                                        {% if j.training_id.id == item.id and  j.programm_id.id == i.id%}
+                                        <form action="setCompleted/" method="POST">
+                                            {% csrf_token %}
+                                            <div class="access">
+                                                <div>  Подход {{ j.number }}</div>
+                                                <div>
+                                                    {% if j.weight is not None  and  j.quantity is not None%}
+                                                        <p>{{ j.weight}} кг / {{ j.quantity}} раз</p>
+                                                    {% endif %}
+                                                    {% if j.distance is not None  and j.time is not None%}
+                                                        <p>{{ j.distance }} км / {{ j.time}} мин</p>
+                                                        {% if j.weight is not None %}
+                                                            <p> время отдыха: {{ j.time_rest}} мин </p>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    {% if j.isCompleted %}
+                                                        <p>Выполнен</p>
+                                                    {% else %}
+                                                        <input type="hidden" name="approach_id" value="{{j.id}}">
+                                                        <button type="submit">Выполнено</button>
+                                                    {% endif %}
+                                                    
+                                                </div>
+                                            </div>
+                                        </form>
+                                        {% endif %} 
+                                    {% endfor%}
+                                    <div class="add-approachs hide">
+                                        <p>Подход</p>
+                                        <form method="POST" action="add_approach/">
+                                            {% csrf_token %}
+                                            <input type="hidden" name='training_id' value="{{item.id}}">
+                                            <input type="hidden" name='programm_id' value="{{i.id}}">
+                                            {{ form.number }}<br> 
+                                            {{ form.weight }}<br> 
+                                            {{ form.quantity }}<br> 
+                                            {{ form.distance }}<br> 
+                                            {{ form.time }}<br> 
+                                            {{ form.time_rest }}<br> 
+                                            <span>{{data.error}}</span>
+                                            <button type="submit">Сохранить</button>
+                                        </form>
                                     </div>
                                     
-                                </div>
-                                {% endif %} 
-                            {% endfor%}
-                            <div class="add-approachs hide">
-                                <p>Подход</p>
-                                <form method="POST">
-                                    {% csrf_token %}
-                                    <input type="hidden" name='training_id' value="{{item.id}}">
-                                    <input type="hidden" name='programm_id' value="{{i.id}}">
-                                    {{ form.number }}<br> 
-                                    {{ form.quantity }}<br> 
-                                    {{ form.weight }}<br> 
-                                    {{ form.time }}<br> 
-                                    {{ form.time_rest }}<br> 
-
-                                    <span>{{data.error}}</span>
-                                    <button type="submit">Сохранить</button>
-                                </form>
+                                    <div class="d-plus">
+                                        <input type="button" value="+" class="plus">
+                                    </div>
+                                    <div class="minus hide">
+                                        <input type="button" value="-" class="plus">
+                                    </div>  
                             </div>
-                            
-                            <div class="d-plus">
-                                <input type="button" value="+" class="plus">
-                            </div>
-                            <div class="minus hide">
-                                <input type="button" value="-" class="plus">
-                            </div>  
-                    </div>
-                    {% endif %}
-                {% endfor %}
-            </ol>
-        </div>
-
-       
-
-       
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                    <form method="POST" action="delete_training/">
+                        {% csrf_token %}
+                        <input type="hidden" name="training_id"  value="{{ item.id }}">
+                        <input type="submit" value="Удалить" />
+                    </form>
+                </div>
+            {% endfor %}
+        
     </div>
-    {% endfor %}
-
-
-
   </div>
+
+
 {% endblock content %}
