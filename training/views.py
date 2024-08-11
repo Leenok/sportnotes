@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from swingtime.models import Event
 from .models import Competition, Discipline, Exercise, Program, Training, Approach
-from .forms import CompetitionForm, DisciplineForm, ApproachForm, TrainingForm
+from .forms import CompetitionForm, DisciplineForm, ApproachForm, TrainingForm, ProgramForm
 import calendar
 from datetime import datetime
 
@@ -41,14 +41,56 @@ def sport_events(request):
 
 # training plan
 def show_training_plan(reguest):
+    form = ProgramForm()
     list_program = Program.objects.all()
-    print(list_program)
-    group_list_plan = {}
+    list_plan_name = []
     for i in list_program:
-        if i.name not in group_list_plan:
-            group_list_plan[i.name] = Program.objects.filter(name = i.name)
-    print(group_list_plan)
-    return render(reguest, "training/training_plans.html", {'list_program':list_program})
+        if i.name not in list_plan_name:
+            list_plan_name.append(i.name)
+    data = {
+        'list_program':list_program,
+        'list_plan_name': list_plan_name,
+        'form': form
+    }
+    return render(reguest, "training/training_plans.html", data)
+
+def add_training_plan(request):
+    error = ''
+    if request.method == 'POST':
+        form = ProgramForm(request.POST)
+        if form.is_valid():     
+            form.save()
+            return redirect(show_training_plan)
+        else:
+            error = form.errors
+
+    data ={
+        'form': form,
+        'error': error
+    }
+    return render(request, "training/training_plans.html", data)
+
+
+def delete_plan(request):
+    plan_name = request.POST.get("plan_name")
+    Program.objects.filter(name=plan_name).delete()
+    return redirect(show_training_plan)
+
+def delete_exercise_from_program(request):
+    program_id = request.POST.get("id_plan_exercise")
+    Program.objects.get(id=int(program_id)).delete()
+    return redirect(show_training_plan)
+
+def add_exercise_to_plan(request):
+    # error = ''
+    if request.method == 'POST':
+        form = ProgramForm(request.POST)
+        print(form.is_valid())
+        form.save()
+        return redirect(show_training_plan)
+    # else:
+    #     error = form.errors
+    return redirect(show_training_plan)
 
 # training
 def showTrainings(request):
@@ -72,6 +114,11 @@ def showTrainings(request):
     return render(request, "training/training.html", data)
 
 def add_training(request):
+    list_program = Program.objects.all()
+    list_program_names = []
+    for i in list_program:
+        if i.name not in list_program_names:
+            list_program_names.append(i.name)
     error = ''
     sportsmen = request.user
     if request.method == "POST":
@@ -82,10 +129,9 @@ def add_training(request):
             newTrn = form.save()
             program_training = Program.objects.filter(name = newTrn.programm_name)
             nTrn = Training.objects.get(id=newTrn.id)
-            # print(len(program_training))
             for execise in program_training:
                 for i in range(execise.count_approach):	
-                    tom = Approach.objects.create(training_id=nTrn, programm_id=execise, number=i+1, isCompleted=False, quantity=10, weight=50, time=3, time_rest=1)
+                    tom = Approach.objects.create(training_id=nTrn, programm_id=execise, number=i+1, isCompleted=False, quantity=execise.repeat, weight=50, time=2, time_rest=1)
                     print(f'new appr {i} {tom}')
             return redirect(showTrainings)
         else:
@@ -94,7 +140,8 @@ def add_training(request):
 
     data ={
         'form': form,
-        'error': error
+        'error': error,
+        'list_program_names': list_program_names
     }
     return render(request, "training/add_training.html", data)
 

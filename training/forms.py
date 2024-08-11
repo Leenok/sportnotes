@@ -1,7 +1,31 @@
 
+from random import choice
+import select
+from django import forms
 from selectors import SelectSelector
-from .models import Competition, Discipline, Approach, Training
+from .models import Competition, Discipline, Approach, Training, Program
 from django.forms import ChoiceField, HiddenInput, DateInput, ModelForm, TextInput, DateTimeInput, NumberInput
+
+class ProgramForm(ModelForm):
+    class Meta:
+        model = Program
+        fields = ['name', 'count_approach', 'repeat', 'exercise_id']
+
+        widgets = {
+            'name': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Название программы'
+            }),
+            'count_approach': NumberInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Колличество подходов'
+            }),
+            'repeat': NumberInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Колличество повторений'
+            }),
+
+        }
 
 
 class TrainingForm(ModelForm):
@@ -26,10 +50,11 @@ class TrainingForm(ModelForm):
                 'class': 'intput_competition',
                 'placeholder': 'Тип тренировки'
             }),
-            'programm_name': TextInput(attrs={
-                'class': 'intput_competition',
-                'placeholder': 'Программа тренировки'
-            }),
+            # 'programm_name': TextInput(attrs={
+            #     'class': 'intput_competition',
+            #     'placeholder': 'Программа тренировки'
+            # }),
+
         }
 
 

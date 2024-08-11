@@ -3,9 +3,18 @@
 {% block content %}
 <div class="add-training">
     <h1>Добавить тренировку</h1>
+    {{list_program_names }}
     <form method="POST">
         {% csrf_token %}
-        {{form}}<br> 
+        {{form.name}}<br> 
+        {{form.date}}<br> 
+        {{form.type}}<br> 
+        <select name="programm_name" id="pet-select">
+            {% for name in list_program_names%}
+            <option value="{{name}}">{{name}}</option>
+            {% endfor %}
+        </select>
+
         <span>{{error}}</span>
         <input type="submit" value="Сохранить" class="">
     </form>

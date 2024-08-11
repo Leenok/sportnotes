@@ -9,7 +9,8 @@ class Exercise(models.Model):
 
 class Program(models.Model):
     name = models.CharField(max_length=100)
-    count_approach = models.IntegerField(null=True, blank=True)
+    count_approach = models.IntegerField(null=True, blank=True) # подходы
+    repeat = models.IntegerField(default=1, blank=True) # повторений
     exercise_id = models.ForeignKey(Exercise, on_delete=models.CASCADE)
 
     def __str__(self):
