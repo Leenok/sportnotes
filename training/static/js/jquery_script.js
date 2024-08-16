@@ -1,10 +1,10 @@
-$( document ).ready(function() {
-    // document.addEventListener('DOMContentLoaded', function() {
+$( document ).ready(function($) {
+    // document.addEventListener('DOMContentLoaded', function() { month,agendaWeek,agendaDay
         var calendar = $('#calendar').fullCalendar({
             header: {
-                left: 'month,agendaWeek,agendaDay',
-                center: 'title',
-                right: 'prev,next today'
+                left:   '',
+                center: 'prev,next',
+                right:  'title '
             },
             events: '/all_events',
             selectable: true,
@@ -35,18 +35,16 @@ $( document ).ready(function() {
     //   });
 
     $(".minus").click(function(){
-        $(".add-approachs").addClass('hide');
-        $(".d-plus").removeClass('hide');
-        $(".minus").addClass('hide');
+        $(this).closest('.access-line').find(".d-plus").removeClass('hide');
+        $(this).closest('.access-line').find(".minus").addClass('hide');
+        $(this).closest('.access-line').find(".add-approachs").addClass('hide');
+
     })
     $(".d-plus").click(function(){
-        $(".add-approachs").removeClass('hide');
-        $(".minus").removeClass('hide');
-        $(".d-plus").addClass('hide');
-
+        $(this).closest('.access-line').find('.minus').removeClass('hide');
+        $(this).closest('.access-line').find('.add-approachs').removeClass('hide');
+        $(this).addClass('hide');
     })
-
-
 
 });
 

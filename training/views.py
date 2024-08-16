@@ -157,6 +157,12 @@ def add_approach(request):
     if request.method == "POST":
         form = ApproachForm(request.POST)      
         if form.is_valid():
+            # new_approach= form.save(commit=False)
+            # approach_number = Approach.objects.filter(training_id=int(request.POST.get("training_id")))
+            # print(approach_number)
+            # approach_number_2 = approach_number.filter(programm_id.exercise = exercise_name)))
+            # new_approach.number = approach_number
+            # new_approach.save()
             form.save()
             return redirect(showTrainings)
         else:

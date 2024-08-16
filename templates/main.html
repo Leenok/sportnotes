@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-<div class="main">
+<!-- <div class="main">
     <h1>Main</h1>
     {% if request.user.is_authenticated %}
     <h2>Hello, {{request.user}}!</h2>
@@ -9,8 +9,30 @@
     <h2>Hello!</h2>
     {% endif %}
     
+</div> -->
+<div class="banner-fon">
+    <div class="calendar-block">
+        <h2>Все тренировки за месяц</h3>
+        <div id='calendar' class="main_calendar"></div>
+   </div>
+   <div class="first-step"> Путь начинается с первого шага</div>
+   
+   <div class="btn-step step-one"><a href="/add_training/">Создать тренировку</a></div>
+   <!-- <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#26e07f;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#1fb141"><path d="M21.5,21.5v129h64.5v-32.25v-64.5v-32.25zM86,53.75c0,17.7805 14.4695,32.25 32.25,32.25c17.7805,0 32.25,-14.4695 32.25,-32.25c0,-17.7805 -14.4695,-32.25 -32.25,-32.25c-17.7805,0 -32.25,14.4695 -32.25,32.25zM118.25,86c-17.7805,0 -32.25,14.4695 -32.25,32.25c0,17.7805 14.4695,32.25 32.25,32.25c17.7805,0 32.25,-14.4695 32.25,-32.25c0,-17.7805 -14.4695,-32.25 -32.25,-32.25z"></path></g></g></svg> -->
+   <img src="{% static 'img/lines/icons8-down-left.png' %}" alt="line" class="line-one">
+
+   <div class="btn-step step-two"><a href="/training_plans/">Выбрать план или создать свой</a></div>
+   <img src="{% static 'img/lines/icons8-long-left.png' %}" alt="line" class="line-two">
+   
+   <div class="btn-step step-three"><a href="/training/">Выполнить и отметить все подходы тренировки</a></div>
+   <img src="{% static 'img/lines/icons8-down-left.png' %}" alt="line" class="line-three">
+    
+   <div  class="btn-step step-ready orange">Готово!<br> Вы стали еще сильнее!</div>
+   <div class="banner">
+        <h1 class="main-title">Спортивный дневник</h1>
+        <p>Вести спортивный дневник с нами легко!</p>
+    </div>
 </div>
-<div id='calendar'></div>
 
 
 {% endblock content %}

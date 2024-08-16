@@ -9,14 +9,14 @@
     box-sizing: border-box;
 }
 body{
-    font-size: 10px;
+    font-size: 14px;
     
 }
 .content{
     min-height: 100vh;
 }
 .wraper{
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 }
 .bold{
@@ -37,6 +37,155 @@ body{
 }
 .white-href:visited{
     color: white;
+}
+.main_calendar{
+    width: 100%;
+    
+}
+.main-title{
+    font-size: 3.5rem;
+    color: #2a5541;
+    font-weight: bold;
+}
+/* temlates */
+.flex{
+    display: flex;
+    /* justify-content: space-between; */
+}
+/* width */
+.L{
+    width: 70%;
+}
+.sm{
+    width: 87%;
+}
+/* fons */
+.training-fon{
+    position: relative;
+    background: no-repeat center/100% url("/static/img/pexels-rajtatavarthy-102970.jpg");
+    background-size: cover;
+}
+.dark-fon{
+    background-color: #02020296;
+    padding: 3% 5%;
+    color: white;
+}
+/* banner */
+.banner-fon{
+    position: relative;
+    background: no-repeat center/100% url("/static/img/banner.jpg") fixed;
+    background-size: cover;
+    height: 100vh;
+}
+.banner{
+    position: absolute;
+    top: 3%;
+    right: 5%;
+    background-color: #21463579;
+    padding: 25px 35px;
+}
+.banner p{
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+.calendar-block{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-align: center;
+    width: 30%;
+    min-width: 350px;
+}
+.main_calendar{
+    min-width: 280px;
+    background: #21463579;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding: 15px;
+}
+/* buttons */
+.btn-step{
+    width: 370px;
+    padding: 20px;
+    text-align: center;
+    background-color: #165746d4;
+    border-radius: 25px;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+.btn-step:hover{
+    background-color: #1e312c;
+}
+.btn-step a{
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+}
+.first-step{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: no-repeat center/100% url("/static/img/steps.jpg");
+    background-size: cover;
+    height: 17%;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    text-shadow: -4px -4px 6px rgba(66, 68, 90, 1);
+    border-radius: 15px;
+}
+/* steps */
+.step-one{
+    position: absolute;
+    top: 10%;
+    right: 45%;
+}
+.line-one{
+    transform: rotate(-90deg);
+    position: absolute;
+    top: 20%;
+    right: 37%;
+    width: 100px;
+}
+.step-two{
+    position: absolute;
+    top: 30%;
+    right: 15%;
+}
+.line-two{
+    transform: rotate(-37deg);
+    position: absolute;
+    top: 36%;
+    right: 37%;
+    width: 100px;
+}
+.step-three{
+    position: absolute;
+    top: 41%;
+    right: 45%;
+}
+.line-three{
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 59%;
+    right: 53%;
+    width: 100px;
+}
+.step-ready{
+    position: absolute;
+    bottom: 13%;
+    right: 46%;
+    font-size: 1.5rem;
+}
+.orange{
+    background-color: #b8b657;
 }
 /* nav  */
 .nav{
@@ -198,8 +347,12 @@ select{
 .training-save{
 
 }
-
-
+.training-item{
+    padding-bottom: 70px;
+}
+.training-item h3{
+    text-align: center;
+}
 
 
 .none{

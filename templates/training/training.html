@@ -1,94 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- <div class="trainings">
-    <div class="trainings-info">
-        <div class="">Тренировка: <input type="number" name="" id="" value="1" class="trainings-number"></div>
-        <div class="date"> <form>
-            <input type="date" name="calendar" value="2024-07-13"
-                max="2040-06-04" min="2020-05-29">
-           </form>
-        </div>
-    </div>
-    <div class="lines">
-        <div class="trainings-main">
-            <form action="" class="exercise-line">
-                <form ac class="exercise">
-                    <select id="exerc" name="exerc" class="">
-                        <option value="run">Run</option>
-                        <option value="jump">Jump</option>
-                        <option value="throw">Throw</option>
-                    </select>
-                </form>
-                <div class="access-line">
-                    <div class="access">
-                        <form action="" class="access-item">
-                            <label for="">Подход 1</label>
-                            <input type="number" placeholder="km">
-                            <input type="number" placeholder="time">
-                            <input type="button" value="delete" class="access-delete">
-                        </form>
-                    </div>
-                    <div class="access">
-                        <form action="" class="access-item">
-                            <label for="">Подход 2</label>
-                            <input type="number" placeholder="km">
-                            <input type="number" placeholder="time">
-                            <input type="button" value="delete" class="access-delete">
-                        </form>
-                    </div>
-                    <div class="access">
-                        <form action="" class="access-item">
-                            <label for="">Подход 3</label>
-                            <input type="number" placeholder="km">
-                            <input type="number" placeholder="time">
-                            <input type="button" value="delete" class="access-delete">
-                        </form>
-                    </div> 
-                    <div class="access">
-                        <form action="" class="access-item">
-                            <label for="">Подход 4</label>
-                            <input type="number" placeholder="km">
-                            <input type="number" placeholder="time">
-                            <input type="button" value="delete" class="access-delete">
-                        </form>
-                    </div>
-                    <div class="access">
-                        <form action="" class="access-item">
-                            <label for="">Подход 5</label>
-                            <input type="number" placeholder="km">
-                            <input type="number" placeholder="time">
-                            <input type="button" value="delete" class="access-delete">
-                        </form>
-                    </div>
-                    <div class="access">
-                        <form action="" class="access-item">
-                            <label for="">Подход 6</label>
-                            <input type="number" placeholder="km">
-                            <input type="number" placeholder="time">
-                            <input type="button" value="delete" class="access-delete">
-                        </form>
-                    </div>
-                    <div class="access-add">
-                        <input type="button" value="+" class="plus">
-                    </div>
-                    <div class="exercise-total">
-                        <div class="bold">Сумма подходов:</div>
-                        <div class="">30 km</div>
-                        <div class="">1час 15мин</div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <input type="button" value="Добавить упражнение" class="exercise-add btn">
-    <input type="button" value="Сохранить тренировку" class="training-save btn">
+<div class="training-fon">
 
 
-</div> -->
-
-
-<div class="">
+<div class="wraper dark-fon">
     <a href="/add_training"  class="exercise-add btn block" >Добавить тренировку</a>
     <div class="trainings">
             {% for item in list_trainings%}
@@ -119,6 +35,7 @@
                                                         <p>Выполнен</p>
                                                     {% else %}
                                                         <input type="hidden" name="approach_id" value="{{j.id}}">
+                                                        <input type="hidden" name="exercise_name" value="{{ i.exercise_id.name }}">
                                                         <button type="submit">Выполнено</button>
                                                     {% endif %}
                                                     
@@ -133,6 +50,7 @@
                                             {% csrf_token %}
                                             <input type="hidden" name='training_id' value="{{item.id}}">
                                             <input type="hidden" name='programm_id' value="{{i.id}}">
+                                            <input type="hidden" name='number' value="{{i.id}}">
                                             {{ form.number }}<br> 
                                             {{ form.weight }}<br> 
                                             {{ form.quantity }}<br> 
@@ -157,13 +75,14 @@
                     <form method="POST" action="delete_training/">
                         {% csrf_token %}
                         <input type="hidden" name="training_id"  value="{{ item.id }}">
-                        <input type="submit" value="Удалить" />
+                        <input type="submit" value="Удалить тренировку" />
                     </form>
                 </div>
             {% endfor %}
         
     </div>
   </div>
-
+    
+</div>
 
 {% endblock content %}
