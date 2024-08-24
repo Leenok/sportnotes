@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -36,7 +37,7 @@ class Approach(models.Model):
     time = models.FloatField(default=None, blank=True, null=True) #время
     time_rest = models.FloatField(default=None, blank=True, null=True) #время отдыха
     isCompleted = models.BooleanField(default=False) #выполнен ли подход
-    
+
 
 class Discipline(models.Model):
     name = models.CharField(max_length=100)
@@ -67,3 +68,29 @@ class Competition(models.Model):
     #     userId = self.request.user
     #     return userId
 
+# my version training plan
+class TrainingPlan(models.Model):
+    name = models.CharField(max_length=100, blank=True) 
+    sportsmen_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True)
+    isPublic = models.BooleanField(default=False)
+
+class TrainingLine(models.Model):
+    training_plan_id =  models.ForeignKey(TrainingPlan, on_delete=models.CASCADE, blank=True, null=True)
+    exercise_id = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    type_of_approaches = models.CharField(max_length=100, blank=True)
+
+class BasicApproach(models.Model):
+    training_line_id = models.ForeignKey(TrainingLine, on_delete=models.CASCADE, default=None)
+    number = models.PositiveIntegerField(default=None, blank=True, null=True) #номер
+    quantity = models.PositiveIntegerField(default=None, blank=True, null=True) #кол-во
+    weight = models.FloatField(default=None, blank=True, null=True) #вес
+    distance = models.FloatField(default=None, blank=True, null=True) #дистанция
+    type_temp = models.CharField(max_length=100, blank=True) #темп
+    time = models.FloatField(default=None, blank=True, null=True) #время
+    time_rest = models.FloatField(default=None, blank=True, null=True) #время отдыха
+    isCompleted = models.BooleanField(default=False) #выполнен ли подход
+    
+
+
+    
+    # exercise_id = models.ForeignKey(Exercise,  on_delete=models.CASCADE, default=None)

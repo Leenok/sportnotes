@@ -2,8 +2,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from swingtime.models import Event
-from .models import Competition, Discipline, Exercise, Program, Training, Approach
-from .forms import CompetitionForm, DisciplineForm, ApproachForm, TrainingForm, ProgramForm
+from .models import Competition, Discipline, Exercise, Program, Training, Approach, TrainingPlan, TrainingLine, BasicApproach
+from .forms import CompetitionForm, DisciplineForm, ApproachForm, TrainingForm, ProgramForm, TrainingLineForm
 import calendar
 from datetime import datetime
 
@@ -41,6 +41,14 @@ def sport_events(request):
 
 # training plan
 def show_training_plan(reguest):
+    # new
+    training_plans = TrainingPlan.objects.all()
+    training_lines = TrainingLine.objects.all()
+    list_ptype_of_approachs = ['quantity', 'waight_and_quantity', 'distance', 'time', 'time_and_distance']
+    basic_approaches_all = BasicApproach.objects.all()
+    formTrainingLine = TrainingLineForm()
+
+    # old
     form = ProgramForm()
     list_program = Program.objects.all()
     list_plan_name = []
@@ -50,7 +58,12 @@ def show_training_plan(reguest):
     data = {
         'list_program':list_program,
         'list_plan_name': list_plan_name,
-        'form': form
+        'form': form,
+        'training_plans': training_plans,
+        'training_lines': training_lines,
+        'basic_approaches_all': basic_approaches_all,
+        'list_ptype_of_approachs': list_ptype_of_approachs,
+        'formTrainingLine': formTrainingLine,
     }
     return render(reguest, "training/training_plans.html", data)
 
@@ -70,6 +83,32 @@ def add_training_plan(request):
     }
     return render(request, "training/training_plans.html", data)
 
+def delete_basic_approach(request):
+    basic_approach_id = request.POST.get("id")
+    BasicApproach.objects.get(id=basic_approach_id).delete()
+    return redirect(show_training_plan) 
+
+def add_training_line(request):
+    error = ''
+    if request.method == 'POST':
+        form = TrainingLineForm(request.POST)
+        if form.is_valid():     
+            form.save()
+            return redirect(show_training_plan)
+        else:
+            error = form.errors
+
+    data ={
+        'form': form,
+        'error': error
+    }
+    return render(request, "training/training_plans.html", data)
+
+
+def delete_training_line(request):
+    training_line_id = request.POST.get("id")
+    TrainingLine.objects.get(id=training_line_id).delete()
+    return redirect(show_training_plan)
 
 def delete_plan(request):
     plan_name = request.POST.get("plan_name")

@@ -3,8 +3,22 @@ from random import choice
 import select
 from django import forms
 from selectors import SelectSelector
-from .models import Competition, Discipline, Approach, Training, Program
+from .models import Competition, Discipline, Approach, Training, Program, TrainingLine
 from django.forms import ChoiceField, HiddenInput, DateInput, ModelForm, TextInput, DateTimeInput, NumberInput
+
+
+class TrainingLineForm(ModelForm):
+    class Meta:
+        model = TrainingLine
+        fields = ['training_plan_id', 'exercise_id', 'type_of_approaches']
+
+        widgets = {
+            'training_plan_id': HiddenInput(),
+            'type_of_approaches': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Тип подхода'
+            }),
+        }
 
 class ProgramForm(ModelForm):
     class Meta:
@@ -26,7 +40,6 @@ class ProgramForm(ModelForm):
             }),
 
         }
-
 
 class TrainingForm(ModelForm):
     class Meta:
@@ -56,7 +69,6 @@ class TrainingForm(ModelForm):
             # }),
 
         }
-
 
 class ApproachForm(ModelForm):
     class Meta:
@@ -96,8 +108,6 @@ class DisciplineForm(ModelForm):
     class Meta:
         model = Discipline
         fields = ['name', 'description']
-
-
 
 class CompetitionForm(ModelForm):
     class Meta:

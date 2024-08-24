@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from training.views import competitions, add_competitions, add_discipline, showTrainings, add_training, delete_training, add_approach, setCompleted, show_training_plan, main, all_events, add_event, add_training_plan, delete_exercise_from_program, delete_plan, add_exercise_to_plan
+from training.views import competitions, add_competitions, add_discipline, showTrainings, add_training, delete_training, add_approach, setCompleted, show_training_plan, main, all_events, add_event, add_training_plan, delete_exercise_from_program, delete_plan, add_exercise_to_plan, delete_training_line, delete_basic_approach, add_training_line
 from authorization.views import auth, out, reg
 
 urlpatterns = [
@@ -30,6 +30,11 @@ urlpatterns = [
     path('delete_exercise_from_program/', delete_exercise_from_program),
     path('add_exercise_to_plan/', add_exercise_to_plan),
     path('delete_plan/', delete_plan),
+
+    path('delete_training_line/', delete_training_line),
+    path('add_training_line/', add_training_line),
+    
+    path('delete_basic_approach/', delete_basic_approach),
 
     
     

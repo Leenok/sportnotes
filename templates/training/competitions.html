@@ -1,52 +1,55 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="competitions">
-  <div class="events">
-    <div>
-      {{ html_out1|safe }}
+<div class="competitions-fon">
+<div class="wraper dark-fon">
+  <div class="competitions">
+    <div class="events">
+      <div>
+        {{ html_out1|safe }}
+      </div>
+      <div>
+        {{ html_out|safe }}
+      </div>
+      <div>
+        {{ html_out2|safe }}
+      </div>
     </div>
-    <div>
-      {{ html_out|safe }}
-    </div>
-    <div>
-      {{ html_out2|safe }}
-    </div>
+      <h1> Результаты выступления на соревнованиях {{ name }}:</h1>
+      <table class="competitions-table">
+          <tr>
+            <th>Название</th>
+            <th>Дата</th>
+            <th>Город</th>
+            <th>Дисциплина</th>
+            {% comment %} <th>Планируемый результат</th> {% endcomment %}
+            <th>Результат</th>
+            {% comment %} <th>Планируемое место</th> {% endcomment %}
+            <th>Место</th>
+            {% comment %} <th>Результат победителя</th> {% endcomment %}
+          </tr>
+          {% for item in list_competitions%}
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.date_start|date:"d.m.Y" }}</td>
+            <td>{{ item.city }}</td>
+            <td>{{ item.discipline.name }}</td>
+            {% comment %} <td>{{ item.plan_result }}</td> {% endcomment %}
+            <td>{{ item.result }}</td>
+            {% comment %} <td>{{ item.plan_place }}</td> {% endcomment %}
+            <td>{{ item.place }}</td>
+            {% comment %} <td>{{ item.result_first_place }}</td> {% endcomment %}
+          </tr>
+          {% endfor%}
+      </table>
+      <a href="/add_competitions">
+          <button type="submit" class="btn">Добавить соревнования </button>
+      </a>
+      <a href="/add_discipline">
+          <button type="submit" class="btn">Добавить дисциплину </button>
+      </a>
+
   </div>
-    <h1>Соревнования {{ name }}:</h1>
-    <table class="competitions-table">
-        <tr>
-          <th>Соревнования</th>
-          <th>Дата проведения</th>
-          <th>Город</th>
-          <th>Дисциплина</th>
-          <th>Планируемый результат</th>
-          <th>Выполненый результат</th>
-          <th>Планируемое место</th>
-          <th>Занято место</th>
-          <th>Результат победителя</th>
-        </tr>
-        {% for item in list_competitions%}
-        <tr>
-          <td>{{ item.name }}</td>
-          <td>{{ item.date|date:"d.m.Y H:i" }}</td>
-          <td>{{ item.city }}</td>
-          <td>{{ item.discipline.name }}</td>
-          <td>{{ item.plan_result }}</td>
-          <td>{{ item.result }}</td>
-          <td>{{ item.plan_place }}</td>
-          <td>{{ item.place }}</td>
-          <td>{{ item.result_first_place }}</td>
-        </tr>
-        {% endfor%}
-    </table>
-    <a href="/add_competitions">
-        <button type="submit" class="btn">Добавить соревнования </button>
-    </a>
-    <a href="/add_discipline">
-        <button type="submit" class="btn">Добавить дисциплину </button>
-    </a>
-
 </div>
-
+</div>
 {% endblock content %}

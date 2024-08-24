@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <div class="training-fon">
 
 
 <div class="wraper dark-fon">
-    <a href="/add_training"  class="exercise-add btn block" >Добавить тренировку</a>
+    <a href="/add_training" class="training-add block">Записать тренировку</a>
     <div class="trainings">
             {% for item in list_trainings%}
                 <div class="training-item">
@@ -32,11 +32,16 @@
                                                         {% endif %}
                                                     {% endif %}
                                                     {% if j.isCompleted %}
-                                                        <p>Выполнен</p>
+                                                        <!-- <p>Выполнен</p> -->
+                                                        <button type="submit" class="btn-isCompleted">
+                                                            <img src="{% static 'img/lines/icons8-ch.svg' %}" alt="ok">
+                                                        </button>
                                                     {% else %}
                                                         <input type="hidden" name="approach_id" value="{{j.id}}">
                                                         <input type="hidden" name="exercise_name" value="{{ i.exercise_id.name }}">
-                                                        <button type="submit">Выполнено</button>
+                                                        <button type="submit" class="btn-isCompleted">
+                                                            <img src="{% static 'img/lines/icons8-ch-yellow.svg' %}" alt="ok">
+                                                        </button>
                                                     {% endif %}
                                                     
                                                 </div>
@@ -58,7 +63,7 @@
                                             {{ form.time }}<br> 
                                             {{ form.time_rest }}<br> 
                                             <span>{{data.error}}</span>
-                                            <button type="submit">Сохранить</button>
+                                            <button type="submit" class="btn">Сохранить</button>
                                         </form>
                                     </div>
                                     
@@ -75,7 +80,7 @@
                     <form method="POST" action="delete_training/">
                         {% csrf_token %}
                         <input type="hidden" name="training_id"  value="{{ item.id }}">
-                        <input type="submit" value="Удалить тренировку" />
+                        <input class="btn btn-del" type="submit" value="Удалить тренировку" />
                     </form>
                 </div>
             {% endfor %}

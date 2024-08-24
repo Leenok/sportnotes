@@ -60,15 +60,32 @@ body{
     width: 87%;
 }
 /* fons */
+.competitions-fon{
+    background: no-repeat center/100% url("/static/img/pexels-balram-swain-939960-1887089.jpg") fixed;
+    background-size: cover;
+    height: 100vh;
+}
+.competitions-fon .wraper{
+    height: 100vh;
+}
 .training-fon{
     position: relative;
     background: no-repeat center/100% url("/static/img/pexels-rajtatavarthy-102970.jpg");
+    background-size: cover;
+}
+.training-plan-fon{
+    background: no-repeat center/100% url("/static/img/pexels-victorfreitas-703016.jpg");
     background-size: cover;
 }
 .dark-fon{
     background-color: #02020296;
     padding: 3% 5%;
     color: white;
+}
+.light-fon{
+    background-color: #ffffff7c;
+    padding: 3% 5%;
+    /* color: white; */
 }
 /* banner */
 .banner-fon{
@@ -80,9 +97,11 @@ body{
 .banner{
     position: absolute;
     top: 3%;
-    right: 5%;
+    left: 45%;
+    text-align: center;
     background-color: #21463579;
     padding: 25px 35px;
+    border-radius: 15px;
 }
 .banner p{
     color: #fff;
@@ -108,6 +127,9 @@ body{
 .btn-step{
     width: 370px;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     background-color: #165746d4;
     border-radius: 25px;
@@ -125,8 +147,8 @@ body{
 }
 .first-step{
     position: absolute;
-    bottom: 15px;
-    right: 15px;
+    bottom: 3%;
+    right: 7%;
     background: no-repeat center/100% url("/static/img/steps.jpg");
     background-size: cover;
     height: 17%;
@@ -142,51 +164,59 @@ body{
     border-radius: 15px;
 }
 /* steps */
-.step-one{
-    position: absolute;
-    top: 10%;
-    right: 45%;
-}
-.line-one{
-    transform: rotate(-90deg);
-    position: absolute;
-    top: 20%;
-    right: 37%;
-    width: 100px;
-}
-.step-two{
+.steps{
     position: absolute;
     top: 30%;
-    right: 15%;
+    left: 35%;
+    display: grid;
+    grid-template: repeat(5, 1fr)/ repeat(3, 1fr);
+    gap: 10px 10px;
+    grid-auto-rows: 1fr;
+    width: 50%;
 }
-.line-two{
-    transform: rotate(-37deg);
-    position: absolute;
-    top: 36%;
-    right: 37%;
-    width: 100px;
+
+.step-one{
+    grid-column: 1 ;
+    grid-row: 1 ;
+}
+
+.step-two{
+    grid-column: 3 ;
+    grid-row: 1;
 }
 .step-three{
-    position: absolute;
-    top: 41%;
-    right: 45%;
-}
-.line-three{
-    transform: rotate(-45deg);
-    position: absolute;
-    top: 59%;
-    right: 53%;
-    width: 100px;
+    grid-column: 2 ;
+    grid-row: 3;
 }
 .step-ready{
-    position: absolute;
-    bottom: 13%;
-    right: 46%;
+    grid-column: 1/3;
+    grid-row: 5;
     font-size: 1.5rem;
 }
 .orange{
     background-color: #b8b657;
 }
+.line-one{
+    justify-self: center;
+    transform: rotate(180deg);
+    grid-column: 2;
+    grid-row: 1;
+}
+.line-two{
+    justify-self: center;
+    align-self: center;
+    grid-column: 3;
+    grid-row: 2 / 4;
+
+}
+.line-three{
+    justify-self: center;
+    align-self: center;
+    transform: scaleX(-1); 
+    grid-column: 1;
+    grid-row: 3/5;
+}
+
 /* nav  */
 .nav{
     font-size: 1.6rem;
@@ -341,14 +371,60 @@ select{
     color: white;
     box-shadow: 0px 5px 10px 2px rgba(38, 119, 72, 0.2) inset;
 }
+.btn-del{
+    background-color: #bb5555;
+    color: #8a4040;
+    box-shadow: 0px 5px 10px 2px rgba(250, 132, 158, 0.2);
+}
+.btn-del:hover{
+    background-color: #8a1111;
+    color: white;
+    box-shadow: 0px 5px 10px 2px rgba(250, 132, 158, 0.2) inset;
+}
 .exercise-add{
-    background-color:  #b5fdeba6;
+    background-color:  #229c7ea6;
+    color: white;
+    font-weight: bold;
+}
+.training-add{
+    background-color:  #229c7ea6;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 15px 0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: 1px solid  #229c7ea6;
+    text-align: center;
+    text-transform: uppercase;
+}
+.training-add:hover{
+    background-color:  #196955a6;
+    color: white;
+    /* border: 1px solid black; */
+}
+.btn-isCompleted{
+    background-color: #16574600;
+    border: none;
+    cursor: pointer;
+}
+.btn-isCompleted:hover{
+    background-color: #16574665;
+    border-radius: 50%;
+}
+.btn-isCompleted img{
+    width: 25px;
 }
 .training-save{
 
 }
 .training-item{
-    padding-bottom: 70px;
+    margin-bottom: 70px;
+    background-color: #ffffff75;
+    color: black;
+    padding: 15px 35px;
+    padding-bottom: 7px;
+    font-size: 1.2rem;
 }
 .training-item h3{
     text-align: center;
@@ -364,7 +440,7 @@ select{
 .plus{
     width: 40px;
     /* height: 100%; */
-    background: #b5fdeba6;
+    background: #68b5a2a6;
     color: #2a5541;
     border: none;
 }
@@ -417,24 +493,35 @@ footer{
 }
 
 /* competitions */
+.competitions{
+    background-color: #ffffff8f;
+    padding: 20px;
+    color: black;
+    font-size: 1.2rem;
+}
 .competitions h1{
     text-align: center;
     color: #214635;
-    padding: 10px;
+    padding: 15px;
+
+    padding-bottom: 40px;
 }
 .competitions-table{
     text-align: center;
+    margin: 0 auto;
+    padding-bottom: 70px;
 }
 .competitions-table td{
     text-align: center;
-    padding: 5px 7px;
+    padding: 5px 15px;
     border: 1px solid black;
-    color: #c04b4b;
+    min-width: 150px;
 }
 .competitions .btn{
     padding: 5px 12px;
     background-color: #408a77;
     color: white;
+    font-size: 1.2rem;
 }
 .competitions .btn:hover{
     background-color: #2c5e51;
@@ -469,4 +556,26 @@ footer{
 }
 .events div{
     margin: 5px;
+}
+
+
+/* new plan css */
+.plan-block{
+    /* display: grid;
+    grid-template: 1fr / 1fr 7fr 1fr; */
+    grid-auto-rows: 1fr;
+    gap: 15px 15px; 
+    text-align: center;
+    margin-bottom: 35px;
+}
+.plan-line{
+    display: grid;
+    grid-template: 1fr / repeat(10, 1fr);
+    border: 1px solid green;
+    align-items: center;
+}
+.title-plan{
+    display: grid;
+    grid-template-columns: 7fr 1fr;
+    align-items: center;
 }

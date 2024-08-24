@@ -45,6 +45,15 @@ $( document ).ready(function($) {
         $(this).closest('.access-line').find('.add-approachs').removeClass('hide');
         $(this).addClass('hide');
     })
+    // add-training-line
+    $(".add-training-line").click(function(){
+        $(this).closest('.plan-block').find('.form-add-training-line').removeClass('hide');
+        $(this).addClass('hide');
+    })
+    $(".save-training-line").click(function(){
+        $(this).closest('.plan-block').find('.form-add-training-line').addClass('hide');
+        $(this).closest('.plan-block').find('.add-training-line').removeClass('hide');
+    })
 
 });
 
