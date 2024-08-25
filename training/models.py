@@ -74,6 +74,9 @@ class TrainingPlan(models.Model):
     sportsmen_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True)
     isPublic = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
 class TrainingLine(models.Model):
     training_plan_id =  models.ForeignKey(TrainingPlan, on_delete=models.CASCADE, blank=True, null=True)
     exercise_id = models.ForeignKey(Exercise, on_delete=models.CASCADE)
@@ -88,9 +91,26 @@ class BasicApproach(models.Model):
     type_temp = models.CharField(max_length=100, blank=True) #темп
     time = models.FloatField(default=None, blank=True, null=True) #время
     time_rest = models.FloatField(default=None, blank=True, null=True) #время отдыха
+    
+# my training
+class NewTraining(models.Model):
+    sportsmen_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True)
+    training_date = models.DateTimeField()
+    training_plan_id = models.ForeignKey(TrainingPlan, on_delete=models.CASCADE, default=None, blank=True) 
+    training_description = models.CharField(max_length=300, blank=True) #описание
+
+class NewTrainingLine(models.Model):
+    training_id = models.ForeignKey(NewTraining, on_delete=models.CASCADE, default=None, blank=True)
+    exercise_id = models.ForeignKey(Exercise,  on_delete=models.CASCADE, default=None)
+    type_of_approaches = models.CharField(max_length=100, blank=True)
+
+class NewApproach(models.Model):
+    line_id = models.ForeignKey(NewTrainingLine, on_delete=models.CASCADE, default=None)
+    number = models.IntegerField(default=None, blank=True, null=True) #номер
+    quantity = models.IntegerField(default=None, blank=True, null=True) #кол-во
+    weight = models.FloatField(default=None, blank=True, null=True) #вес
+    distance = models.FloatField(default=None, blank=True, null=True) #дистанция
+    type_temp = models.CharField(max_length=100, blank=True) #темп
+    time = models.FloatField(default=None, blank=True, null=True) #время
+    time_rest = models.FloatField(default=None, blank=True, null=True) #время отдыха
     isCompleted = models.BooleanField(default=False) #выполнен ли подход
-    
-
-
-    
-    # exercise_id = models.ForeignKey(Exercise,  on_delete=models.CASCADE, default=None)

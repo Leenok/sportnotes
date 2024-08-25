@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="training-fon">
+
+
+<div class="wraper dark-fon">
+    <a href="/add_training" class="training-add block">Записать тренировку</a>
+    <form method="POST" action="/add_new_training/">
+        {% csrf_token %}
+        {{form_new_training}}
+        <input type="submit" value="Сохранить" class="btn btn-del" />
+    </form>
+    {% for training in new_training_list%}
+    <div class="training_block ">
+        {{training.training_date}} <br>
+        {% for line in new_training_lines%}
+            {% if training.id ==  line.training_id.id%}
+            <div class="training_line">
+                <div class="training_exercise">
+                    {{ line.exercise_id.name }}
+                </div>
+                <div class="training_sets">
+                    <div class="set">
+                        {% for approach in new_approaches_all%}
+                            {% if line.id ==  approach.line_id.id%}
+                                {% if line.type_of_approaches == 'waight_and_quantity'%}
+                                    <div class="plan-approaches">
+                                        <p>Подход: {{ approach.number }}</p>
+                                        <p>{{ approach.weight }}кг / {{ approach.quantity }} раз </p>
+                                        <!-- <form method="POST" action="/delete_basic_approach/">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ basic_approach.id }}"/>
+                                            <input type="submit" value="X" class="btn btn-del" />
+                                        </form> -->
+                                    </div>
+                                {% endif %}
+                                
+                                {% if line.type_of_approaches == 'distance'%}
+                                    <div class="plan-approaches">
+                                        <p>Подход: {{ approach.number }}</p>
+                                        <p>{{ approach.distance }} км / {{ approach.type_temp }} темп </p>
+                                        <p>{{ approach.time_rest }} отдых </p>
+                                    </div>
+                                {% endif%}
+
+                            {% endif%} 
+                        {% endfor%}
+                    </div>
+                </div>
+                <div class="line_summ">
+                    sum
+                </div>
+            </div>
+            {% endif%}  
+        {% endfor%}
+    </div>
+    {% endfor%}
+</div>
+    
+</div>
+
+{% endblock content %}

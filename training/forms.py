@@ -3,9 +3,134 @@ from random import choice
 import select
 from django import forms
 from selectors import SelectSelector
-from .models import Competition, Discipline, Approach, Training, Program, TrainingLine
+from .models import Competition, Discipline, Approach, Training, Program, TrainingLine, BasicApproach, TrainingPlan, NewTraining, NewTrainingLine, NewApproach
 from django.forms import ChoiceField, HiddenInput, DateInput, ModelForm, TextInput, DateTimeInput, NumberInput
 
+class NewApproachForm(ModelForm):
+    class Meta:
+        model = NewApproach
+        fields = ['line_id', 'number', 'quantity', 'weight', 'distance', 'type_temp', 'time', 'time_rest']
+
+        widgets = {
+            'line_id': HiddenInput(),
+            'number': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Номер подхода'
+            }),
+            'quantity': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Раз'
+            }),
+            'weight': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Вес'
+            }),
+            'distance': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'км'
+            }),
+            'type_temp': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'темп'
+            }),
+            'time': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'мин'
+            }),
+            'time_rest': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Отдых мин'
+            }),
+        }
+
+
+class NewTrainingLineForm(ModelForm):
+    class Meta:
+        model = NewTrainingLine
+        fields = ['training_id', 'exercise_id', 'type_of_approaches']
+
+        widgets = {
+            'training_id': HiddenInput(),
+            'exercise_id': HiddenInput(),
+        }
+
+class NewTrainingForm(ModelForm):
+    class Meta:
+        model = NewTraining
+        fields = ['sportsmen_id', 'training_date', 'training_plan_id', 'training_description']
+
+        widgets = {
+            'sportsmen_id': HiddenInput(),
+            # 'training_plan_id': HiddenInput(),
+            'name': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Название'
+            }),
+            'training_date': DateInput(
+                format=['%d-%m-%Y'],
+                attrs={'type':'date',
+                        'class': 'form-control', 
+                        'placeholder': 'Дата тренировки',
+            }),
+            'training_description': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Описание'
+            }),
+        }
+
+class TrainingPlanForm(ModelForm):
+    class Meta:
+        model = TrainingPlan
+        fields = ['sportsmen_id', 'name', 'isPublic']
+
+        widgets = {
+            'sportsmen_id': HiddenInput(),
+            'name': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Название'
+            }),
+            'isPublic': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Публичный'
+            }),
+        }
+
+class BasicApproachForm(ModelForm):
+    class Meta:
+        model = BasicApproach
+        fields = ['training_line_id', 'number', 'quantity', 'weight', 'distance', 'type_temp', 'time', 'time_rest']
+
+        widgets = {
+            'training_line_id': HiddenInput(),
+            'number': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Номер подхода'
+            }),
+            'quantity': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Раз'
+            }),
+            'weight': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Вес'
+            }),
+            'distance': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'км'
+            }),
+            'type_temp': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'темп'
+            }),
+            'time': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'мин'
+            }),
+            'time_rest': TextInput(attrs={
+                'class': 'intput_competition',
+                'placeholder': 'Отдых мин'
+            }),
+        }
 
 class TrainingLineForm(ModelForm):
     class Meta:

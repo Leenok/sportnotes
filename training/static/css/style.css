@@ -579,3 +579,27 @@ footer{
     grid-template-columns: 7fr 1fr;
     align-items: center;
 }
+.training_block{
+    margin-bottom: 70px;
+    background-color: #ffffff75;
+    color: black;
+    padding: 15px 35px;
+    padding-bottom: 7px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+.training_line{
+    display: grid;
+    grid-template-columns: 1fr 7fr 1fr;
+    align-items: center;
+
+}
+.training_sets{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px 10px;
+}
+.set{
+    border: 1px solid black;
+
+}

@@ -1,137 +1,180 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="training-plan-fon">
-    <div class="wraper light-fon">
-        <div class="new_plans">
-            <h2>New plans</h2>
-            {% for plan in training_plans%}
-                <div class="plan-name plan-block"> 
-                    <div class="title-plan">
-                        <div class="name">
-                            {{ plan.name }}
-                        </div>
-                        <div>
-                            <form method="POST" action="/delete_plan/">
-                                {% csrf_token %}
-                                <input type="hidden" name="plan_name"  value="{{ item }}">
-                                <input type="submit" value="Удалить план" class="btn btn-del">
-                            </form>
-                        </div>
-                    </div>
-                {% for line in training_lines%}
-                    
-                    {% if line.training_plan_id.id == plan.id %}
-                        <div class="plan-line"> {{ line.exercise_id.name }}
-                            {% for basic_approach in basic_approaches_all%}
-                                {% if basic_approach.training_line_id.id == line.id %}
-                                    {% if line.type_of_approaches == 'quantity'%}
-                                        <div class="plan-approaches"> 
-                                            <p>Подход: {{ basic_approach.number }}</p>
-                                            <p>{{ basic_approach.quantity }} раз</p>
-                                            <form method="POST" action="/delete_basic_approach/">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="id"  value="{{ basic_approach.id  }}">
-                                                <input type="submit" value="X" class="btn">
-                                            </form>
-                                        </div>
-                                    {% endif%}
-                                    {% if line.type_of_approaches == 'waight_and_quantity'%}
-                                        <div class="plan-approaches"> 
-                                            <p>Подход: {{ basic_approach.number }}</p>
-                                            <p>{{ basic_approach.weight }}кг / {{ basic_approach.quantity }} раз</p>
-                                            <form method="POST" action="/delete_basic_approach/">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="id"  value="{{ basic_approach.id }}">
-                                                <input type="submit" value="X" class="btn">
-                                            </form>
-                                        </div>
-                                            
-                                    {% endif%}
-                                    {% endif%}
-                                    {% endfor %}
-                                    <div class="btn-line">
-                                        <form method="POST" action="/delete_exercise_from_program/">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="training_line_id"  value="{{ line.id }}">
-                                            <div>
+	<div class="wraper light-fon">
+		<div class="new_plans">
+			<h2>New plans</h2>
+			<button class="btn add-new_plan"> Новый план </button>
+			<form method="POST" action="/add_new_plan/" class="form-add-new_plan hide" >
+				{% csrf_token %}
+				{{trainingPlanForm}}
+				<input type="submit" value="Сохранить" class="btn save-new_plan" />
+			</form>
 
-                                            </div>
-                                            <input type="number" name="quantity" id="">
-                                            <input type="submit" value="+" class="btn">
-                                        </form>
-                                    </div>
-                                    <form method="POST" action="/delete_training_line/">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="id"  value="{{ line.id }}">
-                                        <input type="submit" value="X" class="btn btn-del">
-                                    </form>
-                        </div>
-                    {% endif%}
-                {% endfor %}
-                <form method="POST" action="/add_training_line/" class="form-add-training-line hide">
-                    {% csrf_token %}
-                    <div class="">
-                        <input type="hidden" name="training_plan_id"  value="{{ plan.id }}">
-                        {{formTrainingLine.exercise_id}}
-                        <select name="type_of_approach" id="">
-                            {% for name in list_ptype_of_approachs%}
-                            <option value="{{name}}">{{name}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <input type="submit" value="Сохранить" class="btn save-training-line">  
-                </form>
-                <button class="btn add-training-line">Добавить упражнение</button>   
+			{% for plan in training_plans%}
+			<div class="plan-name plan-block">
+				<div class="title-plan">
+					<div class="name">{{ plan.name }}</div>
+					<div>
+						<form method="POST" action="/delete_new_plan/">
+							{% csrf_token %}
+							<input type="hidden" name="id" value="{{ plan.id }}" />
+							<input type="submit" value="Удалить план" class="btn btn-del"/>
+						</form>
+					</div>
+				</div>
+				{% for line in training_lines%} {% if line.training_plan_id.id == plan.id %}
+				<div class="plan-line">
+					{{ line.exercise_id.name }} 
+					{% for basic_approach in basic_approaches_all%}
+						{% if basic_approach.training_line_id.id == line.id %}
+							{% if line.type_of_approaches == 'quantity'%}
+								<div class="plan-approaches">
+									<p>Подход: {{ basic_approach.number }}</p>
+									<p>{{ basic_approach.quantity }} раз</p>
+									<form method="POST" action="/delete_basic_approach/">
+										{% csrf_token %}
+										<input type="hidden" name="id" value="{{ basic_approach.id  }}"/>
+										<input type="submit" value="X" class="btn btn-del" />
+									</form>
+								</div>
+							{% comment %} {% endif%} {% endcomment %}
+							{% elif line.type_of_approaches == 'waight_and_quantity'%}
+								<div class="plan-approaches">
+									<p>Подход: {{ basic_approach.number }}</p>
+									<p>{{ basic_approach.weight }}кг / {{ basic_approach.quantity }} раз </p>
+									<form method="POST" action="/delete_basic_approach/">
+										{% csrf_token %}
+										<input type="hidden" name="id" value="{{ basic_approach.id }}"/>
+										<input type="submit" value="X" class="btn btn-del" />
+									</form>
+								</div>
+							{% else %}
+							{% comment %} {% endif%}
 
-            </div>
-            {% endfor %}
-        </div>
-        <div class="add-discipline">
-            <h1>Планы тренировок:</h1>
+							{% if line.type_of_approaches == 'distance'%} {% endcomment %}
+								<div class="plan-approaches">
+									<p>Подход: {{ basic_approach.number }}</p>
+									<p>{{ basic_approach.distance }} км / {{ basic_approach.type_temp }} темп </p>
+									<p>{{ basic_approach.time_rest }} отдых </p>
+									<form method="POST" action="/delete_basic_approach/">
+										{% csrf_token %}
+										<input type="hidden" name="id" value="{{ basic_approach.id }}"/>
+										<input type="submit" value="X" class="btn btn-del" />
+									</form>
+								</div>
+							{% endif%}
+						{% endif%}
+					{% endfor %}
+					<div class="">
+						<form method="POST" action="/add_basic_approach/" class="form-add-basic_approach hide">
+							{% csrf_token %}
+								<input type="hidden" name="training_line_id" value="{{ line.id }}" />
+								<p>_{{ line.type_of_approaches  }}_ </p>
+								{% if line.type_of_approaches == 'quantity'%}
+									{{ formBasicApproach.quantity }}
+								{% endif%}
+								{% if line.type_of_approaches == 'waight_and_quantity'%}
+									{{ formBasicApproach.weight }}
+									{{ formBasicApproach.quantity }}
+								{% endif%}
+								{% if line.type_of_approaches == 'distance'%}
+									{{ formBasicApproach.distance }}
+									{{ formBasicApproach.type_temp }}
+									{{ formBasicApproach.time_rest }}
+								{% endif%}
+								{% if line.type_of_approaches == 'time'%}
+									{{ formBasicApproach.time }}
+									{{ formBasicApproach.time_rest }}
+								{% endif%}
+								{% if line.type_of_approaches == 'time_and_distance'%}
+									{{ formBasicApproach.distance }}
+									{{ formBasicApproach.type_temp }}
+									{{ formBasicApproach.time_rest }}
+								{% comment %} {% else %}
+									{{ formBasicApproach.time_rest }} {% endcomment %}
+								{% endif%} 
+								<input type="submit" value="Добавить" class="btn save-basic-approach" />
+						</form>
+						<button class="btn add-basic_approach"> + </button>
+					</div>
 
-                {% for item in list_plan_name%}
+					<form method="POST" action="/delete_training_line/">
+						{% csrf_token %}
+						<input type="hidden" name="id" value="{{ line.id }}" />
+						<input type="submit" value="X" class="btn btn-del" />
+					</form>
+				</div>
+				{% endif%}
+				{% endfor %}
+				<form method="POST" action="/add_training_line/" class="form-add-training-line hide" >
+					{% csrf_token %}
+					<div class="">
+						<input type="hidden" name="training_plan_id" value="{{ plan.id }}"/>
+						{{formTrainingLine.exercise_id}}
+						<select name="type_of_approaches" id="">
+							{% for name in list_type_of_approachs%}
+								<option value="{{name}}">{{name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<input
+						type="submit"
+						value="Сохранить"
+						class="btn save-training-line"
+					/>
+				</form>
+				<button class="btn add-training-line">
+					Добавить упражнение
+				</button>
+			</div>
+			{% endfor %}
+		</div>
+		
+		
+		<!-- <div class="add-discipline">
+			<h1>Планы тренировок:</h1>
 
-                    <h2>{{ item }}  </h2>
+			{% for item in list_plan_name%}
 
-                    {% for i in list_program %}
-                        <!-- {{i}} -->
-                        {% if i.name == item %}
-                        <form method="POST" action="/delete_exercise_from_program/">
-                            {% csrf_token %}
-                        <input type="hidden" name="id_plan_exercise"  value="{{ i.id }}">
-                        <li>{{ i.exercise_id.name }} / Подходов: {{ i.count_approach }} по {{i.repeat}} раз <input type="submit" value="X" class=""> </li>
-                        </form>
-                        {% endif%}
-                    {% endfor %}
-                    <form method="POST" action="/add_exercise_to_plan/">
-                        {% csrf_token %}
-                        <input type="hidden" name="name"  value="{{ item }}">
-                        {{form.exercise_id}}
-                        {{form.repeat}}
-                        {{form.count_approach}}
-                        <input type="submit" value="Добавить упражнение" class="">
-                    </form>
-                    <br>
-                    <form method="POST" action="/delete_plan/">
-                        {% csrf_token %}
-                        <input type="hidden" name="plan_name"  value="{{ item }}">
-                        <input type="submit" value="Удалить план" class="">
-                    </form>
-                {% endfor%}
-        </div>
+			<h2>{{ item }}</h2>
 
-        <div class="add_training_plan">
-            <h2>Добавить план тренировки:</h2>
-            <form method="POST" action="add_training_plan/">
-                {% csrf_token %}
-                {{form}}
-                <span>{{error}}</span>
-                <input type="submit" value="Сохранить" class="">
-            </form>
-        </div>
-    </div>
+			{% for i in list_program %}
+			
+			{% if i.name == item %}
+			<form method="POST" action="/delete_exercise_from_program/">
+				{% csrf_token %}
+				<input type="hidden" name="id_plan_exercise" value="{{ i.id }}" />
+				<li>
+					{{ i.exercise_id.name }} / Подходов: {{ i.count_approach }} по {{i.repeat}} раз
+					<input type="submit" value="X" class="" />
+				</li>
+			</form>
+			{% endif%} {% endfor %}
+			<form method="POST" action="/add_exercise_to_plan/">
+				{% csrf_token %}
+				<input type="hidden" name="name" value="{{ item }}" />
+				{{form.exercise_id}} {{form.repeat}} {{form.count_approach}}
+				<input type="submit" value="Добавить упражнение" class="" />
+			</form>
+			<br />
+			 <form method="POST" action="/delete_plan/">
+				{% csrf_token %}
+				<input type="hidden" name="plan_name" value="{{ item }}" />
+				<input type="submit" value="Удалить план" class="" />
+			</form> 
+			{% endfor%}
+		</div>
+
+		<div class="add_training_plan">
+			<h2>Добавить план тренировки:</h2>
+			<form method="POST" action="add_training_plan/">
+				{% csrf_token %} {{form}}
+				<span>{{error}}</span>
+				<input type="submit" value="Сохранить" class="" />
+			</form>
+		</div> -->
+	</div>
 </div>
 
-.
-{% endblock content %}
+. {% endblock content %}
