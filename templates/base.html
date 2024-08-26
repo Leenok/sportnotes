@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
-
+    
 </head>
 <body>
     <nav class="nav">
@@ -18,10 +18,9 @@
             <ul class="nav-items">
                 {% if request.user.is_authenticated %}
                 <li><a href="/competitions_list" class="white-href">Соревнования</a> </li>
-                <li> <a href="" class="white-href"> Календарь</a></li>
+                <li> <a href="/vue_test" class="white-href"> Календарь</a></li>
                 <li><a href="/main" class="white-href">Главная</a></li>
-                <li><a href="/training" class="white-href">Тренировки</a></li>
-                <li><a href="/trainings" class="white-href">new Тренировки</a></li>
+                <li><a href="/trainings" class="white-href">Тренировки</a></li>
                 <li><a href="/training_plans" class="white-href">Планы тренировок</a></li>
                 <li><a href="/out" class="white-href">Выход</a></li>
                 {% else %}
@@ -40,18 +39,14 @@
     </div>   
  
 
-    
-    
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
-    
-    <!-- <script type="text/javascript" scr="{% static 'js/script.js' %}"></script> -->
-    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="{% static "jquery/jquery.js" %}"></script>
     <script src="{% static "jquery/plugins/jquery.cookie.js" %}"></script>
     <script src="{% static "jquery/plugins/jquery.parseQuery.js" %}"></script>
     <script src="{% static "jquery/plugins/jquery.utils.js" %}"></script>
     <script src="{% static "jquery/plugins/jquery.cookie.js" %}"></script>
     <script type="text/javascript" src={% static "js/script.js" %}></script>
+    <script type="text/javascript" src={% static "js/vue.js" %}></script>
     <script type="text/javascript" src={% static "js/jquery_script.js" %}></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>

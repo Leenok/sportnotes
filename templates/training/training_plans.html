@@ -14,12 +14,12 @@
 			{% for plan in training_plans%}
 			<div class="plan-name plan-block">
 				<div class="title-plan">
-					<div class="name">{{ plan.name }}</div>
+					<h3 class="name">{{ plan.name }}</h3>
 					<div>
 						<form method="POST" action="/delete_new_plan/">
 							{% csrf_token %}
 							<input type="hidden" name="id" value="{{ plan.id }}" />
-							<input type="submit" value="Удалить план" class="btn btn-del"/>
+							<input type="submit" value="Удалить план" class="btn btn-del-x"/>
 						</form>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 									<form method="POST" action="/delete_basic_approach/">
 										{% csrf_token %}
 										<input type="hidden" name="id" value="{{ basic_approach.id  }}"/>
-										<input type="submit" value="X" class="btn btn-del" />
+										<input type="submit" value="X" class="btn btn-del-x" />
 									</form>
 								</div>
 							{% comment %} {% endif%} {% endcomment %}
@@ -46,7 +46,7 @@
 									<form method="POST" action="/delete_basic_approach/">
 										{% csrf_token %}
 										<input type="hidden" name="id" value="{{ basic_approach.id }}"/>
-										<input type="submit" value="X" class="btn btn-del" />
+										<input type="submit" value="X" class="btn btn-del-x" />
 									</form>
 								</div>
 							{% else %}
@@ -60,7 +60,7 @@
 									<form method="POST" action="/delete_basic_approach/">
 										{% csrf_token %}
 										<input type="hidden" name="id" value="{{ basic_approach.id }}"/>
-										<input type="submit" value="X" class="btn btn-del" />
+										<input type="submit" value="X" class="btn btn-del-x" />
 									</form>
 								</div>
 							{% endif%}
@@ -87,12 +87,10 @@
 									{{ formBasicApproach.time }}
 									{{ formBasicApproach.time_rest }}
 								{% endif%}
-								{% if line.type_of_approaches == 'time_and_distance'%}
+								{% if line.type_of_approaches == 'temp_and_distance'%}
 									{{ formBasicApproach.distance }}
 									{{ formBasicApproach.type_temp }}
 									{{ formBasicApproach.time_rest }}
-								{% comment %} {% else %}
-									{{ formBasicApproach.time_rest }} {% endcomment %}
 								{% endif%} 
 								<input type="submit" value="Добавить" class="btn save-basic-approach" />
 						</form>
@@ -102,7 +100,7 @@
 					<form method="POST" action="/delete_training_line/">
 						{% csrf_token %}
 						<input type="hidden" name="id" value="{{ line.id }}" />
-						<input type="submit" value="X" class="btn btn-del" />
+						<input type="submit" value="X" class="btn btn-del-x" />
 					</form>
 				</div>
 				{% endif%}

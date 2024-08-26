@@ -7,6 +7,10 @@ from .forms import CompetitionForm, DisciplineForm, ApproachForm, NewTrainingFor
 import calendar
 from datetime import datetime
 
+# vue
+def vue_test(request):
+    return render(request, "training/vue.html")
+
 
 # training plan
 def show_training_plan(reguest):
@@ -17,7 +21,7 @@ def show_training_plan(reguest):
     trainingPlanForm = TrainingPlanForm()
     formTrainingLine = TrainingLineForm()
     formBasicApproach = BasicApproachForm()
-    list_type_of_approachs = ['quantity', 'waight_and_quantity', 'distance', 'time', 'time_and_distance']
+    list_type_of_approachs = ['quantity', 'waight_and_quantity', 'distance', 'time', 'temp_and_distance']
     
     # old
     form = ProgramForm()
@@ -112,10 +116,11 @@ def delete_basic_approach(request):
     BasicApproach.objects.get(id=basic_approach_id).delete()
     return redirect(show_training_plan) 
  
+
 # new show/add trainig 
 def trainings(request):
         # new
-    new_training_list = NewTraining.objects.all()
+    new_training_list = NewTraining.objects.all().order_by('-training_date').values()
     new_training_lines = NewTrainingLine.objects.all()
     new_approaches_all = NewApproach.objects.all()
     form_new_training = NewTrainingForm()
@@ -174,137 +179,24 @@ def createLineandSetsForTraining(training, plan):
             )
             print(new_set.number)
 
-
-
-def del_new_training(request):
-    pass
-
-# old
-def delete_plan(request):
-    plan_name = request.POST.get("plan_name")
-    Program.objects.filter(name=plan_name).delete()
-    return redirect(show_training_plan)
-
-def add_training_plan(request):
-    error = ''
-    if request.method == 'POST':
-        form = ProgramForm(request.POST)
-        if form.is_valid():     
-            form.save()
-            return redirect(show_training_plan)
-        else:
-            error = form.errors
-
-    data ={
-        'form': form,
-        'error': error
-    }
-    return render(request, "training/training_plans.html", data)
-
-def delete_exercise_from_program(request):
-    program_id = request.POST.get("id_plan_exercise")
-    Program.objects.get(id=int(program_id)).delete()
-    return redirect(show_training_plan)
-
-def add_exercise_to_plan(request):
-    # error = ''
-    if request.method == 'POST':
-        form = ProgramForm(request.POST)
-        print(form.is_valid())
-        form.save()
-        return redirect(show_training_plan)
-    # else:
-    #     error = form.errors
-    return redirect(show_training_plan)
-
-# training
-def showTrainings(request):
-    user_id = request.user.id
-    list_trainings = Training.objects.filter(sportsmen = user_id).order_by('-date')
-    list_program = Program.objects.all()
-    exc_for_trainings = {}
-    list_approach = Approach.objects.all()
-    for i in list_trainings:
-        exc_for_trainings[i.programm_name] = Program.objects.filter(name = i.programm_name)
-        # list_approach.push(Approach.objects.filter(training_id=i.id))
-
-    form = ApproachForm()
-
-    data ={
-        'list_trainings':list_trainings,
-        'list_program':list_program,
-        'list_approach':list_approach,
-        'form': form
-    }
-    return render(request, "training/training.html", data)
-
-def add_training(request):
-    list_program = Program.objects.all()
-    list_program_names = []
-    for i in list_program:
-        if i.name not in list_program_names:
-            list_program_names.append(i.name)
-    error = ''
-    sportsmen = request.user
-    if request.method == "POST":
-        form = TrainingForm(request.POST)      
-        if form.is_valid():
-            newTrn = form.save(commit=False)
-            newTrn.sportsmen = sportsmen
-            newTrn = form.save()
-            program_training = Program.objects.filter(name = newTrn.programm_name)
-            nTrn = Training.objects.get(id=newTrn.id)
-            for execise in program_training:
-                for i in range(execise.count_approach):	
-                    tom = Approach.objects.create(training_id=nTrn, programm_id=execise, number=i+1, isCompleted=False, quantity=execise.repeat, weight=50, time=2, time_rest=1)
-                    print(f'new appr {i} {tom}')
-            return redirect(showTrainings)
-        else:
-            form.errors
-    form = TrainingForm()
-
-    data ={
-        'form': form,
-        'error': error,
-        'list_program_names': list_program_names
-    }
-    return render(request, "training/add_training.html", data)
-
-def delete_training(request):
-    training_id = request.POST.get("training_id")
-    Training.objects.get(id=int(training_id)).delete()
-    return redirect(showTrainings)
-
-
-# approache
-def add_approach(request):
-    error = ''
-    if request.method == "POST":
-        form = ApproachForm(request.POST)      
-        if form.is_valid():
-            # new_approach= form.save(commit=False)
-            # approach_number = Approach.objects.filter(training_id=int(request.POST.get("training_id")))
-            # print(approach_number)
-            # approach_number_2 = approach_number.filter(programm_id.exercise = exercise_name)))
-            # new_approach.number = approach_number
-            # new_approach.save()
-            form.save()
-            return redirect(showTrainings)
-        else:
-            form.errors
-    form = ApproachForm()
-    data ={
-        'form': form,
-        'error': error
-    }
-    return render(request, "training/training.html", data)
-      
 def setCompleted(request):
-    approach_id = request.POST.get("approach_id")
-    approach = Approach.objects.get(id=int(approach_id))
+    approach_id = request.POST.get("set")
+    approach = NewApproach.objects.get(id=int(approach_id))
     approach.isCompleted = True
     approach.save(update_fields=['isCompleted'])
-    return redirect(showTrainings)
+    return redirect(trainings)
+
+def setNotCompleted(request):
+    approach_id = request.POST.get("set")
+    approach = NewApproach.objects.get(id=int(approach_id))
+    approach.isCompleted = False
+    approach.save(update_fields=['isCompleted'])
+    return redirect(trainings)
+
+def delete_new_training(request):
+    training_id = request.POST.get("id")
+    NewTraining.objects.get(id=training_id).delete()
+    return redirect(trainings)
 
 # competitions
 def competitions(request):

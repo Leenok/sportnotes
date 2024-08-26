@@ -5,15 +5,22 @@
 
 
 <div class="wraper dark-fon">
-    <a href="/add_training" class="training-add block">Записать тренировку</a>
-    <form method="POST" action="/add_new_training/">
+    <button class="btn training-add block">Новая тренировка </button>
+    <form method="POST" action="/add_new_training/" class="form-add_new_training hide">
         {% csrf_token %}
         {{form_new_training}}
-        <input type="submit" value="Сохранить" class="btn btn-del" />
+        <input type="submit" value="Сохранить" class="btn save-new-training" />
     </form>
     {% for training in new_training_list%}
     <div class="training_block ">
-        {{training.training_date}} <br>
+        <div class="title-plan">
+            <h3>{{training.training_date}} {{training.training_plan_id.name}}</h3>
+            <form method="POST" action="/delete_new_training/">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ training.id }}"/>
+                <input type="submit" value="X" class="btn btn-del-x" />
+            </form>
+        </div>
         {% for line in new_training_lines%}
             {% if training.id ==  line.training_id.id%}
             <div class="training_line">
@@ -21,32 +28,69 @@
                     {{ line.exercise_id.name }}
                 </div>
                 <div class="training_sets">
-                    <div class="set">
+                    <!-- <div class="set"> -->
                         {% for approach in new_approaches_all%}
                             {% if line.id ==  approach.line_id.id%}
+                            <div class="set">
+                                {% if line.type_of_approaches == 'quantity'%}
+                                        <h5>Подход: {{ approach.number }}</h5>
+                                        <p>{{ approach.quantity }} раз</p>
+                                    <!-- </div> -->
+                                {% endif%}
+
                                 {% if line.type_of_approaches == 'waight_and_quantity'%}
-                                    <div class="plan-approaches">
-                                        <p>Подход: {{ approach.number }}</p>
+                                    <!-- <div class="set"> -->
+                                        <h5>Подход: {{ approach.number }}</h5>
                                         <p>{{ approach.weight }}кг / {{ approach.quantity }} раз </p>
-                                        <!-- <form method="POST" action="/delete_basic_approach/">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="id" value="{{ basic_approach.id }}"/>
-                                            <input type="submit" value="X" class="btn btn-del" />
-                                        </form> -->
-                                    </div>
+                                    <!-- </div> -->
                                 {% endif %}
                                 
                                 {% if line.type_of_approaches == 'distance'%}
-                                    <div class="plan-approaches">
-                                        <p>Подход: {{ approach.number }}</p>
-                                        <p>{{ approach.distance }} км / {{ approach.type_temp }} темп </p>
+                                    <!-- <div class="set"> -->
+                                        <h5>Подход: {{ approach.number }}</h5>
+                                        <p>{{ approach.distance }} км </p>
+                                        <p> темп {{ approach.type_temp }}  </p>
                                         <p>{{ approach.time_rest }} отдых </p>
-                                    </div>
+                                    <!-- </div> -->
                                 {% endif%}
+
+                                {% if line.type_of_approaches == 'time'%}
+                                    <!-- <div class="set"> -->
+                                        <h5>Подход: {{ approach.number }}</h5>
+                                        <p>{{ approach.time }} мин </p>
+                                        <p> отдых {{ approach.time_rest }} мин </p>
+                                    <!-- </div> -->
+                                {% endif%}
+
+                                {% if line.type_of_approaches == 'temp_and_distance'%}
+                                    <!-- <div class="set"> -->
+                                        <h5>Подход: {{ approach.number }}</h5>
+                                        <p>{{ approach.distance }} км </p>
+                                        <p> темп {{ approach.type_temp }} мин </p>
+                                        <p> отдых {{ approach.time_rest }} мин </p>
+                                {% endif%}
+                                {% if approach.isCompleted %}
+                                <form action="/setNotCompleted/" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="set" value="{{ approach.id }}">
+                                    <button type="submit" class="btn-isCompleted">
+                                        <img src="{% static 'img/lines/icons8-ch.svg' %}" alt="ok">
+                                    </button>
+                                </form>
+                                {% else %}
+                                <form action="/setNewCompleted/" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="set" value="{{ approach.id }}">
+                                    <button type="submit" class="btn-isCompleted">
+                                        <img src="{% static 'img/lines/icons8-ch-yellow.svg' %}" alt="ok">
+                                    </button>
+                                </form>
+                                {% endif%}
+                                </div>
 
                             {% endif%} 
                         {% endfor%}
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div class="line_summ">
                     sum

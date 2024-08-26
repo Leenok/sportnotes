@@ -101,6 +101,21 @@ $(document).ready(function ($) {
 			.addClass("hide");
 		$(this).closest(".new_plans").find(".add-new_plan").removeClass("hide");
 	});
+	// add new training-add
+	$(".training-add").click(function () {
+		$(this)
+			.closest(".dark-fon")
+			.find(".form-add_new_training")
+			.removeClass("hide");
+		$(this).addClass("hide");
+	});
+	$(".save-new-training").click(function () {
+		$(this)
+			.closest(".dark-fon")
+			.find(".form-add_new_training")
+			.addClass("hide");
+		$(this).closest(".dark-fon").find(".training-add").removeClass("hide");
+	});
 });
 
 function addExercise() {
