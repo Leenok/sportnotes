@@ -1,0 +1,22 @@
+.banner {
+  position: absolute;
+  top: 3%;
+  left: 45%;
+  text-align: center;
+  background-color: #21463579;
+  padding: 25px 35px;
+  border-radius: 15px;
+
+  &-fon {
+    position: relative;
+    background: no-repeat center/100% url("/static/img/banner.jpg") fixed;
+    background-size: cover;
+    height: 100vh;
+  }
+
+  p {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+}

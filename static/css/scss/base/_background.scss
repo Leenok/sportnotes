@@ -1,0 +1,32 @@
+.competitions-fon {
+    background: no-repeat center/100% url("/static/img/pexels-balram-swain-939960-1887089.jpg") fixed;
+    background-size: cover;
+    height: 100vh;
+}
+
+.competitions-fon .wraper {
+    height: 100vh;
+}
+
+.training-fon {
+    position: relative;
+    background: no-repeat center/100% url("/static/img/pexels-rajtatavarthy-102970.jpg");
+    background-size: cover;
+}
+
+.training-plan-fon {
+    background: no-repeat center/100% url("/static/img/pexels-victorfreitas-703016.jpg");
+    background-size: cover;
+}
+
+.dark-fon {
+    background-color: #02020296;
+    padding: 3% 5%;
+    color: white;
+}
+
+.light-fon {
+    background-color: #ffffff7c;
+    padding: 3% 5%;
+    /* color: white; */
+}

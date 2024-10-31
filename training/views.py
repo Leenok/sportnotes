@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
-from swingtime.models import Event
+# from swingtime import Event
 from .models import Competition, Discipline, Exercise, Program, Training, Approach, TrainingPlan, TrainingLine, BasicApproach, NewTraining, NewTrainingLine, NewApproach
 from .forms import CompetitionForm, DisciplineForm, ApproachForm, NewTrainingForm, TrainingForm, ProgramForm, TrainingLineForm, BasicApproachForm, TrainingPlanForm, NewApproachForm
 import calendar
@@ -286,7 +286,7 @@ def add_event(request):
     data = {}
     return JsonResponse(data)
 
-def sport_events(request):
-    events = Event.objects.all()
-    return render(request,"events.html", {'events':events})
+# def sport_events(request):
+#     events = Event.objects.all()
+#     return render(request,"events.html", {'events':events})
 

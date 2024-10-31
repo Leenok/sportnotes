@@ -1,0 +1,28 @@
+.nav {
+  font-size: 1.6rem;
+  background-color: $main-bg-color;
+  color: $main-text-color;
+  text-align: center;
+  animation: all 0.7s forwards;
+
+  &-items {
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style-type: none;
+
+    li {
+      text-decoration: none;
+      padding: 7px;
+      text-shadow: 0 0 0 transparent;
+      transition: 0.5s;
+
+      &:hover {
+        cursor: pointer;
+        text-shadow: -3px -3px #558ABB;
+      }
+    }
+  }
+}

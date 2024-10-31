@@ -1,0 +1,24 @@
+$main-bg-color: rgb(5, 65, 65);
+$main-bg-hover-color: rgb(9, 87, 87);
+$main-text-color: aliceblue;
+
+$color-orange: #b8b657;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 14px;
+}
+
+.orange {
+  background-color: $color-orange;
+}
+
+.none,
+.hide {
+  display: none;
+}

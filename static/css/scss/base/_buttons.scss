@@ -1,0 +1,86 @@
+.btn-step {
+  width: 370px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #165746d4;
+  border-radius: 25px;
+  border: none;
+  color: white;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #1e312c;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+  }
+}
+
+.btn {
+  background-color: #55bba1;
+  text-align: center;
+  width: 100%;
+  padding: 5px;
+  margin: 10px 0;
+  color: #408a77;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0px 5px 10px 2px rgba(132, 250, 205, 0.2);
+
+  &:hover {
+    background-color: #2a5541;
+    color: white;
+    box-shadow: 0px 5px 10px 2px rgba(38, 119, 72, 0.2) inset;
+  }
+
+  &-del {
+    background-color: #bb5555;
+    color: #8a4040;
+    box-shadow: 0px 5px 10px 2px rgba(250, 132, 158, 0.2);
+
+    &:hover {
+      background-color: #8a1111;
+      color: white;
+      box-shadow: 0px 5px 10px 2px rgba(250, 132, 158, 0.2) inset;
+    }
+  }
+}
+
+
+.btn-del-x {
+  /* width: 30%; */
+  padding: 3px;
+  margin: 5px 0;
+  background-color: #00000000;
+  color: rgb(77, 15, 15);
+  box-shadow: none;
+  font-weight: 900;
+
+  &:hover {
+    background-color: #46161641;
+    color: rgb(37, 10, 10);
+    /* font-size: 1.5rem; */
+    box-shadow: none;
+  }
+}
+
+
+.plus {
+  width: 40px;
+  /* height: 100%; */
+  background: #68b5a2a6;
+  color: #2a5541;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background: $main-bg-hover-color;
+  }
+}

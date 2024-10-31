@@ -1,0 +1,18 @@
+.bold {
+  font-weight: bold;
+}
+
+.white-href {
+  text-decoration: none;
+  color: white;
+
+  &:visited {
+    color: white;
+  }
+}
+
+.main-title {
+  font-size: 3.5rem;
+  color: #2a5541;
+  font-weight: bold;
+}

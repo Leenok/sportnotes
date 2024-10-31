@@ -1,0 +1,13 @@
+footer {
+  background-color: $main-bg-color;
+  color: $main-text-color;
+  font-size: 1.2rem;
+  text-align: left;
+
+  &-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+  }
+}

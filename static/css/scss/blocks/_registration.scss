@@ -1,0 +1,25 @@
+.registration {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+
+  label {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+}
+
+.registration>input,
+.registration label {
+  padding: 7px;
+  margin: 5px;
+  text-align: center;
+}
+
+.registration .registration>input:active,
+.registration>input:focus {
+  border: none;
+  border-bottom: 1px #2a5541 solid;
+}
